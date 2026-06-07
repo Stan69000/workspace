@@ -1,0 +1,98 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-sans: 'Inter', system-ui, sans-serif;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-white text-gray-900 leading-relaxed dark:bg-gray-950 dark:text-gray-100;
+  }
+
+  /* Focus visible cohérent sur tous les éléments interactifs (RGAA 10.7) */
+  :focus-visible {
+    outline: 3px solid #16a34a;
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
+}
+
+/* Lien d'évitement (RGAA 12.7) */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  z-index: 9999;
+  padding: 0.5rem 1rem;
+  background: #16a34a;
+  color: #fff;
+  border-radius: 0 0 0.5rem 0.5rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.skip-link:focus {
+  left: 50%;
+  transform: translateX(-50%);
+  top: 0;
+}
+
+/* Respect des préférences de mouvement réduit (RGAA 13.8) */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Zones cliquables agrandies sur écrans tactiles (RGAA 10.11) */
+@media (pointer: coarse) {
+  a,
+  button,
+  [role='button'],
+  input[type='checkbox'],
+  input[type='radio'],
+  select {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+/* Mode contraste forcé — Windows High Contrast (RGAA 3.3) */
+@media (forced-colors: active) {
+  /* Maintenir les bordures structurantes */
+  .forced-border {
+    border: 2px solid ButtonText !important;
+  }
+
+  /* Les gradients disparaissent — donner un fond système */
+  .hero-section {
+    background: ButtonFace !important;
+    color: ButtonText !important;
+    border: 2px solid ButtonText !important;
+  }
+
+  /* Assurer la visibilité du lien d'évitement */
+  .skip-link:focus {
+    background: Highlight !important;
+    color: HighlightText !important;
+    border: 2px solid ButtonText !important;
+  }
+}
+
+/* Leaflet dark mode */
+.dark .leaflet-tile {
+  filter: invert(100%) hue-rotate(180deg) brightness(95%) contrast(90%);
+}

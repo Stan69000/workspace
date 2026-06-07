@@ -1,4 +1,3 @@
-import dynamic from 'next/dynamic'
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 import { prisma } from '@/lib/prisma'
@@ -6,8 +5,8 @@ import { OuvertMaintenant } from '@/components/public/OuvertMaintenant'
 import { Badge } from '@/components/ui/Badge'
 import { formatEtoiles, JOURS_FR } from '@/lib/utils'
 import { localBusinessSchema } from '@/lib/schema-org'
-
-const CommentVenir = dynamic(() => import('@/components/public/CommentVenir').then(m => m.CommentVenir), { ssr: false })
+import { CommentVenirDynamic as CommentVenir } from '@/components/public/CommentVenirDynamic'
+import { FormulaireAvis } from '@/components/public/FormulaireAvis'
 
 interface Props { params: Promise<{ slug: string }> }
 
@@ -55,7 +54,7 @@ export default async function ActeurPage({ params }: Props) {
             <h1 className="mt-1 text-3xl font-bold text-gray-900 dark:text-gray-100">
               <span aria-hidden="true">{acteur.emoji} </span>{acteur.nom}
             </h1>
-            {acteur.noteAverage && acteur.nbAvis > 0 && (
+            {!!acteur.noteAverage && acteur.nbAvis > 0 && (
               <p className="mt-1 text-amber-500">
                 <span aria-hidden="true">{formatEtoiles(acteur.noteAverage)}</span>
                 <span className="sr-only">Note : {acteur.noteAverage.toFixed(1)} sur 5</span>
@@ -94,10 +93,10 @@ export default async function ActeurPage({ params }: Props) {
             )}
 
             {/* Avis */}
-            {acteur.avis.length > 0 && (
-              <div>
-                <h2 className="mb-3 font-semibold text-gray-900 dark:text-gray-100">Avis</h2>
-                <div className="space-y-3">
+            <div>
+              <h2 className="mb-3 font-semibold text-gray-900 dark:text-gray-100">Avis</h2>
+              {acteur.avis.length > 0 && (
+                <div className="mb-4 space-y-3">
                   {acteur.avis.map(avis => (
                     <div key={avis.id} className="rounded-lg border border-gray-100 p-3 dark:border-gray-800">
                       <div className="flex items-center gap-2">
@@ -112,8 +111,18 @@ export default async function ActeurPage({ params }: Props) {
                     </div>
                   ))}
                 </div>
-              </div>
-            )}
+              )}
+              {acteur.avisActives && (
+                <details className="rounded-lg border border-gray-200 dark:border-gray-700">
+                  <summary className="cursor-pointer px-4 py-3 text-sm font-medium text-village-600 hover:bg-gray-50 dark:text-village-400 dark:hover:bg-gray-800/50">
+                    Laisser un avis
+                  </summary>
+                  <div className="border-t border-gray-200 p-4 dark:border-gray-700">
+                    <FormulaireAvis acteurId={acteur.id} acteurNom={acteur.nom} />
+                  </div>
+                </details>
+              )}
+            </div>
           </div>
 
           {/* Sidebar */}

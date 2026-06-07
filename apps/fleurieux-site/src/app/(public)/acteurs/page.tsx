@@ -1,26 +1,12 @@
 import { Suspense } from 'react'
-import dynamic from 'next/dynamic'
 import { prisma } from '@/lib/prisma'
 import { ActeurCard } from '@/components/public/ActeurCard'
 import { SearchBar } from '@/components/ui/SearchBar'
 import type { Metadata } from 'next'
+import { ActeursMapDynamic as ActeursMap } from '@/components/public/ActeursMapDynamic'
 
 export const metadata: Metadata = { title: 'Acteurs locaux' }
 export const revalidate = 300
-
-const ActeursMap = dynamic(() => import('@/components/public/ActeursMap').then(m => m.ActeursMap), {
-  ssr: false,
-  loading: () => (
-    <div
-      role="status"
-      aria-label="Chargement de la carte"
-      aria-busy="true"
-      className="h-[420px] w-full animate-pulse rounded-xl bg-gray-200 dark:bg-gray-800"
-    >
-      <span className="sr-only">Chargement de la carte en cours…</span>
-    </div>
-  ),
-})
 
 interface Props {
   searchParams: Promise<{ q?: string; categorie?: string; vue?: string }>

@@ -11,7 +11,7 @@ async function main() {
 
   // ── Catégories ───────────────────────────────
   const cats = await prisma.categorie.findMany()
-  const cat = Object.fromEntries(cats.map(c => [c.slug, c.id]))
+  const cat = Object.fromEntries(cats.map((c: { slug: string; id: string }) => [c.slug, c.id]))
 
   // ── Nettoyage complet des données de démo ────
   await prisma.evenement.deleteMany({})

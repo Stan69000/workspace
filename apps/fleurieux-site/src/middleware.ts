@@ -28,9 +28,9 @@ function buildCsp(nonce: string): string {
     "default-src 'self'",
     scriptSrc,
     `style-src 'self' 'nonce-${nonce}' 'unsafe-inline'`,
-    "img-src 'self' data: https://images.unsplash.com https://fleurieux.info",
+    "img-src 'self' data: https://images.unsplash.com https://fleurieux.info https://*.tile.openstreetmap.org https://unpkg.com",
     "font-src 'self'",
-    "connect-src 'self'",
+    "connect-src 'self' https://*.tile.openstreetmap.org",
     "frame-ancestors 'none'",
   ].join('; ')
 }

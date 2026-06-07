@@ -1,0 +1,11 @@
+{
+  "name": "workspace",
+  "private": true,
+  "packageManager": "pnpm@9.0.0",
+  "scripts": {
+    "dev": "pnpm --filter fleurieux dev",
+    "build": "pnpm --filter fleurieux build",
+    "lint": "pnpm -r lint",
+    "typecheck": "pnpm -r typecheck"
+  }
+}

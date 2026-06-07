@@ -1,0 +1,75 @@
+# docker/docker-compose.yml
+# Fleurieux — Stack de production
+# Usage : docker compose -f docker/docker-compose.yml up -d
+
+services:
+
+  # ── PostgreSQL ──────────────────────────────
+  db:
+    image: postgres:16-alpine
+    container_name: fleurieux-db
+    restart: unless-stopped
+    env_file:
+      - ../.env
+    environment:
+      POSTGRES_DB: fleurieux
+      POSTGRES_USER: ${POSTGRES_USER:-fleurieux}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Mot de passe requis}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-fleurieux}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - fleurieux-net
+
+  # ── Next.js App ─────────────────────────────
+  app:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    container_name: fleurieux-app
+    restart: unless-stopped
+    # SEC-016 : variables lues depuis .env — DATABASE_URL défini directement dans .env
+    env_file:
+      - ../.env
+    environment:
+      NODE_ENV: production
+      NEXTAUTH_URL: ${NEXTAUTH_URL:-https://fleurieux.info}
+      NEXT_PUBLIC_URL: ${NEXTAUTH_URL:-https://fleurieux.info}
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - uploads:/app/public/uploads
+    networks:
+      - fleurieux-net
+
+  # ── Nginx Reverse Proxy ──────────────────────
+  nginx:
+    image: nginx:alpine
+    container_name: fleurieux-nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      - /etc/letsencrypt:/etc/letsencrypt:ro
+      - nginx_cache:/var/cache/nginx
+      - uploads:/var/www/uploads:ro
+    depends_on:
+      - app
+    networks:
+      - fleurieux-net
+
+volumes:
+  postgres_data:
+  uploads:
+  nginx_cache:
+
+networks:
+  fleurieux-net:
+    driver: bridge

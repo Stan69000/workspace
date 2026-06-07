@@ -3,6 +3,8 @@
 
 import type { Acteur, Categorie, Horaire, Photo, Avis, User, Evenement, Rando } from '@prisma/client'
 
+export type { Horaire }
+
 // ── Acteur enrichi pour les pages publiques
 export type ActeurAvecRelations = Acteur & {
   categorie: Categorie
@@ -19,6 +21,14 @@ export type ActeurCarte = Pick<Acteur,
 > & {
   categorie: Pick<Categorie, 'nom' | 'slug' | 'emoji'>
   photos: Pick<Photo, 'url' | 'alt'>[]
+}
+
+// ── Acteur pour la carte interactive (avec coordonnées et horaires)
+export type ActeurMapData = ActeurCarte & {
+  latitude?: number | null
+  longitude?: number | null
+  horairesNote?: string | null
+  horaires: Pick<Horaire, 'jour' | 'ouvert' | 'ouverture' | 'fermeture'>[]
 }
 
 // ── Horaire ouvert aujourd'hui

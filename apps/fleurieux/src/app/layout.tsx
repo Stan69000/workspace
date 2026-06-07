@@ -1,5 +1,4 @@
 import type { Metadata, Viewport } from 'next'
-import { headers } from 'next/headers'
 import Script from 'next/script'
 import '@/app/globals.css'
 
@@ -17,17 +16,11 @@ export const viewport: Viewport = {
   initialScale: 1,
 }
 
-export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  const nonce = (await headers()).get('x-nonce') ?? ''
-
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="fr" suppressHydrationWarning>
-      <head>
-        {nonce && <meta name="x-nonce" content={nonce} />}
-      </head>
       <body>
-        {/* Applique le thème avant le rendu pour éviter le flash — script statique, pas d'interpolation utilisateur */}
-        <Script src="/theme-init.js" strategy="beforeInteractive" nonce={nonce || undefined} />
+        <Script src="/theme-init.js" strategy="afterInteractive" />
         {children}
       </body>
     </html>

@@ -1,4 +1,5 @@
 // src/middleware.ts
+export const runtime = 'nodejs'
 
 import { NextRequest, NextResponse } from 'next/server'
 import { auth } from '@/lib/auth'
@@ -29,7 +30,7 @@ function buildCsp(nonce: string): string {
     "default-src 'self'",
     scriptSrc,
     "style-src 'self' 'unsafe-inline'",
-    "img-src 'self' data: https://images.unsplash.com https://fleurieux.info",
+    "img-src 'self' data: https://images.unsplash.com https://fleurieux.info https://*.tile.openstreetmap.org",
     "font-src 'self'",
     "connect-src 'self'",
     "frame-ancestors 'none'",
@@ -44,7 +45,9 @@ export async function middleware(req: NextRequest) {
   const roles = requiredRoles(pathname)
 
   if (!roles) {
-    const res = NextResponse.next()
+    const requestHeaders = new Headers(req.headers)
+    requestHeaders.set('x-nonce', nonce)
+    const res = NextResponse.next({ request: { headers: requestHeaders } })
     res.headers.set('Content-Security-Policy', csp)
     return res
   }

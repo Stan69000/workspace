@@ -27,7 +27,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         {nonce && <meta name="x-nonce" content={nonce} />}
       </head>
       <body>
-        {/* Applique le thème avant le rendu pour éviter le flash — script statique, pas d'interpolation utilisateur */}
+        {/* Script statique (constante compile-time + nonce serveur) — aucune donnée utilisateur */}
         <script suppressHydrationWarning nonce={nonce || undefined} dangerouslySetInnerHTML={{ __html: THEME_INIT }} />
         {children}
       </body>

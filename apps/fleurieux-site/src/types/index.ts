@@ -52,6 +52,32 @@ export type EvenementAvecActeur = Evenement & {
 // ── Rôles admin
 export type UserRole = 'ADMIN' | 'MODERATEUR' | 'CONTRIBUTEUR' | 'HABITANT'
 
+// ── Transports
+
+export type TrainDeparture = {
+  tripId: string
+  direction: 'vers_lyon' | 'vers_sain_bel'
+  destination: string
+  departureTime: number   // Unix timestamp UTC
+  delaySeconds: number
+  cancelled: boolean
+}
+
+export type TrainAlert = {
+  id: string
+  headerText: string
+  descriptionText: string
+  cause: string
+  effect: string
+  activePeriods: { start: number; end: number | null }[]
+}
+
+export type TransportsData = {
+  departures: TrainDeparture[]
+  alerts: TrainAlert[]
+  fetchedAt: number       // Unix timestamp UTC
+}
+
 // ── Réponse API standard
 export type ApiResponse<T> = {
   data?: T

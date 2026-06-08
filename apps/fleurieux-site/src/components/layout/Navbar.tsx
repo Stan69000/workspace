@@ -9,6 +9,7 @@ const LINKS = [
   { href: '/agenda',  label: 'Agenda' },
   { href: '/randos',  label: 'Randonnées' },
   { href: '/actus',   label: 'Actualités' },
+  { href: '/transports', label: 'Transports' },
 ]
 
 const NAV_LINK_CLASS = 'rounded-md px-4 py-3 text-sm font-medium text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-gray-100 aria-[current=page]:text-village-700 aria-[current=page]:bg-village-50 dark:aria-[current=page]:text-village-400 dark:aria-[current=page]:bg-village-900/20'

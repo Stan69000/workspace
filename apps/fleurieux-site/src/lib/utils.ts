@@ -53,12 +53,6 @@ export function jourCourant(): string {
   return jours[new Date().getDay()]
 }
 
-// ── Formater une note étoiles
-export function formatEtoiles(note: number | null | undefined): string {
-  const n = Math.min(5, Math.max(0, Math.round(note ?? 0)))
-  return '★'.repeat(n) + '☆'.repeat(5 - n)
-}
-
 // ── Tronquer un texte
 export function truncate(str: string, maxLength: number): string {
   if (str.length <= maxLength) return str

@@ -1,14 +1,18 @@
 import Link from 'next/link'
 import type { Metadata } from 'next'
+import { notFound } from 'next/navigation'
 import { prisma } from '@/lib/prisma'
 import { Card } from '@/components/ui/Card'
 import { Badge } from '@/components/ui/Badge'
+import { moduleActif } from '@/lib/modules'
 import { formatDate, formatDateRelative } from '@/lib/utils'
 
 export const metadata: Metadata = { title: 'Agenda' }
 export const revalidate = 300
 
 export default async function AgendaPage() {
+  if (!(await moduleActif('agenda'))) notFound()
+
   const evenements = await prisma.evenement.findMany({
     where: { statut: 'PUBLIE', dateDebut: { gte: new Date() } },
     orderBy: { dateDebut: 'asc' },
@@ -61,13 +65,19 @@ export default async function AgendaPage() {
                 {evt.description && (
                   <p className="mt-1 text-sm text-gray-600 dark:text-gray-400 line-clamp-2">{evt.description}</p>
                 )}
-                {evt.lienInscription && (
-                  <a href={evt.lienInscription} target="_blank" rel="noopener noreferrer"
-                    className="mt-2 inline-block text-sm font-medium text-village-600 hover:underline dark:text-village-400">
-                    S&apos;inscrire <span aria-hidden="true">→</span>
-                    <span className="sr-only">(ouvre dans un nouvel onglet)</span>
+                <div className="mt-2 flex flex-wrap items-center gap-4">
+                  {evt.lienInscription && (
+                    <a href={evt.lienInscription} target="_blank" rel="noopener noreferrer"
+                      className="inline-block text-sm font-medium text-village-600 hover:underline dark:text-village-400">
+                      S&apos;inscrire <span aria-hidden="true">→</span>
+                      <span className="sr-only">(ouvre dans un nouvel onglet)</span>
+                    </a>
+                  )}
+                  <a href={`/api/agenda/export?ids=${evt.id}`} download={`${evt.slug}.ics`}
+                    className="inline-block text-sm text-gray-500 hover:text-village-600 hover:underline dark:text-gray-400">
+                    <span aria-hidden="true">＋ </span>Ajouter à mon agenda
                   </a>
-                )}
+                </div>
               </div>
             </Card>
           ))}

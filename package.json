@@ -3,8 +3,8 @@
   "private": true,
   "packageManager": "pnpm@9.0.0",
   "scripts": {
-    "dev": "pnpm --filter fleurieux dev",
-    "build": "pnpm --filter fleurieux build",
+    "dev": "pnpm --filter fleurieux-site dev",
+    "build": "pnpm --filter fleurieux-site build",
     "lint": "pnpm -r lint",
     "typecheck": "pnpm -r typecheck"
   }

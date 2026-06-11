@@ -33,21 +33,14 @@ export function localBusinessSchema(
       addressCountry: 'FR',
     },
     ...(acteur.telephone && { telephone: acteur.telephone }),
-    ...(acteur.siteWeb   && { sameAs: acteur.siteWeb }),
+    ...((acteur.siteWeb || acteur.instagram) && {
+      sameAs: [acteur.siteWeb, acteur.instagram].filter(Boolean),
+    }),
     ...(acteur.latitude && acteur.longitude && {
       geo: {
         '@type': 'GeoCoordinates',
         latitude:  acteur.latitude,
         longitude: acteur.longitude,
-      },
-    }),
-    ...(acteur.noteAverage && acteur.nbAvis > 0 && {
-      aggregateRating: {
-        '@type': 'AggregateRating',
-        ratingValue: acteur.noteAverage,
-        reviewCount: acteur.nbAvis,
-        bestRating: 5,
-        worstRating: 1,
       },
     }),
     ...(openingHours.length > 0 && { openingHours }),

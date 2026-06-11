@@ -14,8 +14,10 @@ export default async function AdminDashboardPage() {
     evenementsAVenir,
     randosTotal,
     actusTotal,
-    avisEnAttente,
     pushSubscriptions,
+    annoncesEnAttente,
+    signalementsNouveaux,
+    alertesActives,
   ] = await Promise.all([
     prisma.acteur.count(),
     prisma.acteur.count({ where: { statut: 'PUBLIE' } }),
@@ -23,24 +25,28 @@ export default async function AdminDashboardPage() {
     prisma.evenement.count({ where: { statut: 'PUBLIE', dateDebut: { gte: new Date() } } }),
     prisma.rando.count({ where: { statut: 'PUBLIE' } }),
     prisma.actu.count({ where: { statut: 'PUBLIE' } }),
-    prisma.avis.count({ where: { statut: 'EN_ATTENTE' } }),
     prisma.pushSubscription.count(),
+    prisma.annonce.count({ where: { statut: 'EN_ATTENTE' } }),
+    prisma.signalement.count({ where: { statut: 'NOUVEAU' } }),
+    prisma.alerte.count({ where: { actif: true } }),
   ])
 
   const stats = [
     { label: 'Acteurs publiés', value: acteursPublies, total: acteursTotal, href: '/admin/acteurs', color: 'text-village-600' },
     { label: 'Événements à venir', value: evenementsAVenir, total: evenementsTotal, href: '/admin/agenda', color: 'text-blue-600' },
+    { label: 'Alertes actives', value: alertesActives, href: '/admin/alertes', color: 'text-amber-600' },
+    { label: 'Annonces à modérer', value: annoncesEnAttente, href: '/admin/annonces', color: annoncesEnAttente > 0 ? 'text-red-600' : 'text-gray-600' },
+    { label: 'Signalements nouveaux', value: signalementsNouveaux, href: '/admin/signalements', color: signalementsNouveaux > 0 ? 'text-red-600' : 'text-gray-600' },
     { label: 'Randonnées', value: randosTotal, href: '/admin/randos', color: 'text-green-600' },
     { label: 'Actualités', value: actusTotal, href: '/admin/actus', color: 'text-orange-600' },
-    { label: 'Avis en attente', value: avisEnAttente, href: '/admin/avis', color: avisEnAttente > 0 ? 'text-red-600' : 'text-gray-600' },
     { label: 'Abonnés push', value: pushSubscriptions, href: '#', color: 'text-purple-600' },
   ]
 
   const shortcuts = [
+    { label: 'Publier une alerte', href: '/admin/alertes' },
+    { label: 'Modérer les annonces', href: '/admin/annonces' },
+    { label: 'Traiter les signalements', href: '/admin/signalements' },
     { label: 'Importer des acteurs (CSV)', href: '/admin/acteurs/import' },
-    { label: 'Modérer les avis', href: '/admin/avis' },
-    { label: 'Gérer les contributeurs', href: '/admin/contributeurs' },
-    { label: 'Paramètres', href: '/admin/parametres' },
   ]
 
   return (

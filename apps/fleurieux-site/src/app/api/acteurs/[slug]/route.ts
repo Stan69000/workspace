@@ -12,7 +12,6 @@ export async function GET(_req: NextRequest, { params }: { params: Promise<{ slu
         categorie: true,
         horaires: { orderBy: { jour: 'asc' } },
         photos: { orderBy: { ordre: 'asc' } },
-        avis: { where: { statut: 'APPROUVE' }, orderBy: { createdAt: 'desc' }, take: 10 },
       },
     })
 

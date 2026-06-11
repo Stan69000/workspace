@@ -31,7 +31,6 @@ model User {
   accounts      Account[]
   acteurs       Acteur[]        @relation("ContributeurActeur")
   evenements    Evenement[]     @relation("ContributeurEvenement")
-  avis          Avis[]
   actus         Actu[]
   randos        Rando[]         @relation("ContributeurRando")
 
@@ -104,8 +103,6 @@ model Acteur {
   emoji         String?       @default("🏪")
   categorieId   String
   statut        Statut        @default(BROUILLON)
-  miseEnAvant   Boolean       @default(false)
-  avisActives   Boolean       @default(true)
   createdAt     DateTime      @default(now())
   updatedAt     DateTime      @updatedAt
 
@@ -116,6 +113,7 @@ model Acteur {
   telephone     String?
   email         String?
   siteWeb       String?
+  instagram     String?
   latitude      Float?
   longitude     Float?
 
@@ -134,13 +132,8 @@ model Acteur {
   contributeurId String?
   photos        Photo[]
   horaires      Horaire[]
-  avis          Avis[]
   tags          TagActeur[]
   evenements    Evenement[]
-
-  // Score calculé (dénormalisé pour perf)
-  noteAverage   Float?        @default(0)
-  nbAvis        Int           @default(0)
 
   @@index([statut])
   @@index([categorieId, statut])
@@ -226,38 +219,6 @@ enum Statut {
 }
 
 // ─────────────────────────────────────────────
-// AVIS & NOTES
-// ─────────────────────────────────────────────
-
-model Avis {
-  id          String      @id @default(cuid())
-  acteurId    String
-  userId      String?
-  prenomAuteur String?    // Pour les non-connectés
-  estHabitant Boolean     @default(true)
-  note        Int         // 1-5
-  texte       String?
-  statut      StatutAvis  @default(EN_ATTENTE)
-  signale     Boolean     @default(false)
-  nbUtiles    Int         @default(0)
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
-
-  acteur      Acteur      @relation(fields: [acteurId], references: [id], onDelete: Cascade)
-  user        User?       @relation(fields: [userId], references: [id], onDelete: SetNull)
-
-  @@index([acteurId, statut])
-  @@map("avis")
-}
-
-enum StatutAvis {
-  EN_ATTENTE
-  APPROUVE
-  REFUSE
-  SIGNALE
-}
-
-// ─────────────────────────────────────────────
 // ÉVÉNEMENTS / AGENDA
 // ─────────────────────────────────────────────
 
@@ -305,6 +266,10 @@ model Rando {
   typeCircuit    TypeCircuit @default(BOUCLE)
   depart         String?
   gpxUrl         String?
+  sourceUrl      String?     // lien vers le tracé/carte (ex. AllTrails)
+  sourceNom      String?     // nom de la source (ex. "AllTrails")
+  noteSource     Float?      // note moyenne sur la source (0–5)
+  traceGeojson   String?     // tracé GeoJSON (MultiLineString [lon,lat]) — ex. OpenStreetMap
   statut         Statut      @default(PUBLIE)
   createdAt      DateTime    @default(now())
   updatedAt      DateTime    @updatedAt
@@ -357,6 +322,7 @@ model PushSubscription {
   p256dh    String
   auth      String
   userId    String?
+  topics    String[] @default([])  // sujets choisis ; [] = legacy (reçoit tout)
   createdAt DateTime @default(now())
 
   @@map("push_subscriptions")
@@ -379,4 +345,169 @@ model Actu {
   contributeur   User?    @relation(fields: [contributeurId], references: [id], onDelete: SetNull)
 
   @@map("actus")
+}
+
+// ─────────────────────────────────────────────
+// INFOS PRATIQUES — Alertes mairie (avec push)
+// ─────────────────────────────────────────────
+
+model Alerte {
+  id        String       @id @default(cuid())
+  titre     String
+  message   String
+  type      TypeAlerte   @default(AUTRE)
+  niveau    NiveauAlerte @default(INFO)
+  dateDebut DateTime     @default(now())
+  dateFin   DateTime?
+  actif     Boolean      @default(true)
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+
+  @@index([actif, dateDebut])
+  @@map("alertes")
+}
+
+enum TypeAlerte {
+  TRAVAUX
+  EAU
+  ELECTRICITE
+  METEO
+  CHASSE
+  SECURITE
+  ROUTE
+  AUTRE
+}
+
+enum NiveauAlerte {
+  INFO
+  IMPORTANT
+  URGENT
+}
+
+// ─────────────────────────────────────────────
+// INFOS PRATIQUES — Numéros utiles (offline)
+// ─────────────────────────────────────────────
+
+model NumeroUtile {
+  id          String          @id @default(cuid())
+  nom         String
+  numero      String
+  description String?
+  categorie   CategorieNumero @default(AUTRE)
+  ordre       Int             @default(0)
+
+  @@map("numeros_utiles")
+}
+
+enum CategorieNumero {
+  URGENCE
+  MAIRIE
+  SANTE
+  DECHETS
+  TRANSPORT
+  AUTRE
+}
+
+// ─────────────────────────────────────────────
+// PETITES ANNONCES (entre voisins)
+// ─────────────────────────────────────────────
+
+model Annonce {
+  id           String           @id @default(cuid())
+  titre        String
+  description  String
+  categorie    CategorieAnnonce @default(AUTRE)
+  prenomAuteur String
+  contact      String
+  statut       Statut           @default(EN_ATTENTE)
+  createdAt    DateTime         @default(now())
+  expiresAt    DateTime?
+
+  @@index([statut, createdAt])
+  @@map("annonces")
+}
+
+enum CategorieAnnonce {
+  DON
+  RECHERCHE
+  COVOITURAGE
+  SERVICE
+  PRET
+  EMPLOI
+  AUTRE
+}
+
+// ─────────────────────────────────────────────
+// SIGNALEMENTS CITOYENS
+// ─────────────────────────────────────────────
+
+model Signalement {
+  id           String            @id @default(cuid())
+  type         TypeSignalement   @default(AUTRE)
+  description  String
+  localisation String?
+  prenomAuteur String?
+  contact      String?
+  statut       StatutSignalement @default(NOUVEAU)
+  createdAt    DateTime          @default(now())
+
+  @@index([statut, createdAt])
+  @@map("signalements")
+}
+
+enum TypeSignalement {
+  ECLAIRAGE
+  VOIRIE
+  PROPRETE
+  ESPACES_VERTS
+  MOBILIER
+  AUTRE
+}
+
+enum StatutSignalement {
+  NOUVEAU
+  EN_COURS
+  RESOLU
+  REFUSE
+}
+
+// ─────────────────────────────────────────────
+// COLLECTE DES DÉCHETS
+// ─────────────────────────────────────────────
+
+model CollecteDechets {
+  id        String            @id @default(cuid())
+  type      TypeDechet
+  jour      Jour
+  frequence FrequenceCollecte @default(HEBDOMADAIRE)
+  note      String?
+  actif     Boolean           @default(true)
+  ordre     Int               @default(0)
+
+  @@map("collectes_dechets")
+}
+
+enum TypeDechet {
+  ORDURES_MENAGERES
+  TRI_SELECTIF
+  VERRE
+  DECHETS_VERTS
+  ENCOMBRANTS
+}
+
+enum FrequenceCollecte {
+  HEBDOMADAIRE
+  SEMAINES_PAIRES
+  SEMAINES_IMPAIRES
+}
+
+// ─────────────────────────────────────────────
+// MODULES (activation/désactivation depuis l'admin)
+// ─────────────────────────────────────────────
+
+model ModuleFlag {
+  key   String  @id
+  actif Boolean @default(true)
+
+  @@map("module_flags")
 }

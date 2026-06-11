@@ -1,7 +1,7 @@
 // src/types/index.ts
 // Types partagés dans tout le projet
 
-import type { Acteur, Categorie, Horaire, Photo, Avis, User, Evenement, Rando } from '@prisma/client'
+import type { Acteur, Categorie, Horaire, Photo, Evenement, Rando } from '@prisma/client'
 
 export type { Horaire }
 
@@ -10,14 +10,12 @@ export type ActeurAvecRelations = Acteur & {
   categorie: Categorie
   horaires: Horaire[]
   photos: Photo[]
-  avis: Avis[]
-  _count?: { avis: number }
 }
 
 // ── Acteur carte (léger, pour les listes)
 export type ActeurCarte = Pick<Acteur,
   'id' | 'slug' | 'nom' | 'emoji' | 'description' |
-  'adresse' | 'telephone' | 'noteAverage' | 'nbAvis' | 'statut' | 'miseEnAvant'
+  'adresse' | 'telephone' | 'statut'
 > & {
   categorie: Pick<Categorie, 'nom' | 'slug' | 'emoji'>
   photos: Pick<Photo, 'url' | 'alt'>[]
@@ -29,6 +27,7 @@ export type ActeurMapData = ActeurCarte & {
   longitude?: number | null
   horairesNote?: string | null
   horaires: Pick<Horaire, 'jour' | 'ouvert' | 'ouverture' | 'fermeture'>[]
+  distanceKm?: number
 }
 
 // ── Horaire ouvert aujourd'hui
@@ -37,11 +36,6 @@ export type HoraireAujourdhui = {
   ouverture?: string | null
   fermeture?: string | null
   horairesNote?: string | null
-}
-
-// ── Avis avec auteur
-export type AvisAvecAuteur = Avis & {
-  user?: Pick<User, 'name' | 'image'> | null
 }
 
 // ── Événement enrichi

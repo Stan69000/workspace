@@ -8,7 +8,10 @@ import { auth } from '@/lib/auth'
 const ROUTE_ROLES: [string, string[]][] = [
   ['/admin/contributeurs', ['ADMIN']],
   ['/admin/parametres',    ['ADMIN']],
-  ['/admin/avis',          ['ADMIN', 'MODERATEUR']],
+  ['/admin/alertes',       ['ADMIN', 'MODERATEUR']],
+  ['/admin/annonces',      ['ADMIN', 'MODERATEUR']],
+  ['/admin/signalements',  ['ADMIN', 'MODERATEUR']],
+  ['/admin/dechets',       ['ADMIN', 'MODERATEUR']],
   ['/admin',               ['ADMIN', 'MODERATEUR', 'CONTRIBUTEUR']],
 ]
 

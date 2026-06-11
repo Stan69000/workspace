@@ -13,7 +13,6 @@ export async function GET(req: NextRequest) {
     const pageSize = Math.min(50, Math.max(1, parseInt(searchParams.get('pageSize') || '12') || 12))
     const search   = searchParams.get('q') || ''
     const categorie = searchParams.get('categorie') || ''
-    const miseEnAvant = searchParams.get('miseEnAvant') === 'true'
 
     const where = {
       statut: 'PUBLIE' as const,
@@ -24,7 +23,6 @@ export async function GET(req: NextRequest) {
         ]
       }),
       ...(categorie && { categorie: { slug: categorie } }),
-      ...(miseEnAvant && { miseEnAvant: true }),
     }
 
     const [acteurs, total] = await Promise.all([
@@ -32,11 +30,11 @@ export async function GET(req: NextRequest) {
         where,
         skip: (page - 1) * pageSize,
         take: pageSize,
-        orderBy: [{ miseEnAvant: 'desc' }, { noteAverage: 'desc' }],
+        orderBy: { nom: 'asc' },
         select: {
           id: true, slug: true, nom: true, emoji: true,
           description: true, adresse: true, telephone: true,
-          noteAverage: true, nbAvis: true, statut: true, miseEnAvant: true,
+          statut: true,
           categorie: { select: { nom: true, slug: true, emoji: true } },
           photos: { take: 1, select: { url: true, alt: true }, orderBy: { ordre: 'asc' } },
         }

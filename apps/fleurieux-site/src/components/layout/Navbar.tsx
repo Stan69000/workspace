@@ -4,18 +4,22 @@ import { usePathname } from 'next/navigation'
 import { DarkModeToggle } from '@/components/ui/DarkModeToggle'
 import { SearchBar } from '@/components/ui/SearchBar'
 
-const LINKS = [
-  { href: '/acteurs', label: 'Acteurs' },
-  { href: '/agenda',  label: 'Agenda' },
-  { href: '/randos',  label: 'Randonnées' },
-  { href: '/actus',   label: 'Actualités' },
+// `module` = clé du flag d'activation (absent = toujours visible)
+const LINKS: { href: string; label: string; module?: string }[] = [
+  { href: '/acteurs',         label: 'Acteurs' },
+  { href: '/agenda',          label: 'Agenda',          module: 'agenda' },
+  { href: '/infos-pratiques', label: 'Infos pratiques', module: 'infos-pratiques' },
+  { href: '/annonces',        label: 'Annonces',        module: 'annonces' },
+  { href: '/randos',          label: 'Randonnées',      module: 'randos' },
+  { href: '/actus',           label: 'Actualités',      module: 'actus' },
 ]
 
 const NAV_LINK_CLASS = 'rounded-md px-4 py-3 text-sm font-medium text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-gray-100 aria-[current=page]:text-village-700 aria-[current=page]:bg-village-50 dark:aria-[current=page]:text-village-400 dark:aria-[current=page]:bg-village-900/20'
 const NAV_LINK_MOBILE_CLASS = 'whitespace-nowrap rounded-md px-4 py-3 text-sm font-medium text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800 aria-[current=page]:text-village-700 aria-[current=page]:bg-village-50 dark:aria-[current=page]:text-village-400 dark:aria-[current=page]:bg-village-900/20'
 
-export function Navbar() {
+export function Navbar({ modules = {} }: { modules?: Record<string, boolean> }) {
   const pathname = usePathname()
+  const links = LINKS.filter(l => !l.module || modules[l.module] !== false)
 
   function isCurrent(href: string) {
     return pathname === href || pathname.startsWith(`${href}/`)
@@ -31,7 +35,7 @@ export function Navbar() {
         </Link>
 
         <nav aria-label="Menu principal" className="hidden flex-1 items-center gap-1 sm:flex">
-          {LINKS.map(l => (
+          {links.map(l => (
             <Link
               key={l.href}
               href={l.href}
@@ -44,14 +48,14 @@ export function Navbar() {
         </nav>
 
         <div className="ml-auto flex items-center gap-2">
-          <SearchBar globalSearch placeholder="Recherche..." className="hidden w-48 md:flex" />
+          <SearchBar globalSearch placeholder="Recherche..." className="flex w-32 sm:w-44 md:w-48" />
           <DarkModeToggle />
         </div>
       </div>
 
       {/* Mobile nav */}
       <nav aria-label="Navigation mobile" className="flex items-center gap-1 overflow-x-auto border-t border-gray-100 px-4 pb-2 pt-1 sm:hidden dark:border-gray-800">
-        {LINKS.map(l => (
+        {links.map(l => (
           <Link
             key={l.href}
             href={l.href}

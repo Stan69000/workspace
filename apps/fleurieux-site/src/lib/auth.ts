@@ -8,8 +8,10 @@ import bcrypt from 'bcryptjs'
 import { prisma } from './prisma'
 import { checkPasswordStrength, MIN_PASSWORD_LENGTH, MAX_PASSWORD_LENGTH } from './password-policy'
 
-// NEW-003 : BETTER_AUTH_SECRET doit être défini avant le démarrage
-if (!process.env.BETTER_AUTH_SECRET) {
+// NEW-003 : BETTER_AUTH_SECRET requis au démarrage. Toléré pendant `next build`
+// (collecte des pages sans env de prod) — un placeholder est utilisé à ce moment-là.
+const secret = process.env.BETTER_AUTH_SECRET
+if (!secret && process.env.NEXT_PHASE !== 'phase-production-build') {
   throw new Error('BETTER_AUTH_SECRET env var manquant')
 }
 
@@ -45,7 +47,7 @@ export const auth = betterAuth({
   database: prismaAdapter(prisma, {
     provider: 'postgresql',
   }),
-  secret: process.env.BETTER_AUTH_SECRET,
+  secret: secret ?? 'build-placeholder',
   baseURL: process.env.BETTER_AUTH_URL,
   trustedOrigins,
 

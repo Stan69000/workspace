@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { z } from 'zod'
+import { Statut } from '@prisma/client'
 import { prisma } from '@/lib/prisma'
 import { auth } from '@/lib/auth'
 import { geocodeAdresse } from '@/lib/geocode'
@@ -26,9 +27,11 @@ const bodySchema = z.object({
 export async function POST(req: NextRequest) {
   try {
     const session = await auth.api.getSession({ headers: req.headers })
-    if (!session || !['ADMIN', 'CONTRIBUTEUR'].includes(session.user.role ?? '')) {
+    const role = session?.user.role ?? ''
+    if (!session || !['ADMIN', 'CONTRIBUTEUR'].includes(role)) {
       return NextResponse.json({ error: 'Non autorisé' }, { status: 403 })
     }
+    const isAdmin = role === 'ADMIN'
 
     const body = await req.json()
     const parsed = bodySchema.safeParse(body)
@@ -59,6 +62,9 @@ export async function POST(req: NextRequest) {
           }
         }
 
+        // H1 : un CONTRIBUTEUR ne publie jamais directement (passe par la modération)
+        const statut: Statut = isAdmin ? (row.statut as Statut) : Statut.EN_ATTENTE
+
         const data = {
           nom: row.nom,
           categorieId: categorie.id,
@@ -69,17 +75,25 @@ export async function POST(req: NextRequest) {
           telephone: row.telephone ?? null,
           email: row.email || null,
           siteWeb: row.siteWeb || null,
-          statut: row.statut,
+          statut,
           latitude,
           longitude,
         }
 
-        const existing = await prisma.acteur.findUnique({ where: { slug: row.slug } })
+        const existing = await prisma.acteur.findUnique({
+          where: { slug: row.slug },
+          select: { id: true, contributeurId: true },
+        })
         if (existing) {
+          // H1 : un CONTRIBUTEUR ne peut écraser que ses propres fiches
+          if (!isAdmin && existing.contributeurId !== session.user.id) {
+            results.push({ slug: row.slug, action: 'error', error: 'Fiche appartenant à un autre contributeur' })
+            continue
+          }
           await prisma.acteur.update({ where: { slug: row.slug }, data })
           results.push({ slug: row.slug, action: 'updated' })
         } else {
-          await prisma.acteur.create({ data: { ...data, slug: row.slug } })
+          await prisma.acteur.create({ data: { ...data, slug: row.slug, contributeurId: session.user.id } })
           results.push({ slug: row.slug, action: 'created' })
         }
       } catch (rowErr) {

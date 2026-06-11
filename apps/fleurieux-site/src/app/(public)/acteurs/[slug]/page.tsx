@@ -1,4 +1,3 @@
-import dynamic from 'next/dynamic'
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 import { prisma } from '@/lib/prisma'
@@ -6,8 +5,8 @@ import { OuvertMaintenant } from '@/components/public/OuvertMaintenant'
 import { Badge } from '@/components/ui/Badge'
 import { formatEtoiles, JOURS_FR } from '@/lib/utils'
 import { localBusinessSchema } from '@/lib/schema-org'
-
-const CommentVenir = dynamic(() => import('@/components/public/CommentVenir').then(m => m.CommentVenir), { ssr: false })
+// Next 15 : ssr:false interdit dans un Server Component → on passe par le wrapper client.
+import { CommentVenirClient } from '@/components/public/CommentVenirClient'
 
 interface Props { params: Promise<{ slug: string }> }
 
@@ -166,7 +165,7 @@ export default async function ActeurPage({ params }: Props) {
             {acteur.latitude && acteur.longitude && (
               <div>
                 <h2 className="mb-2 font-semibold text-gray-900 dark:text-gray-100">Comment venir</h2>
-                <CommentVenir lat={acteur.latitude} lon={acteur.longitude} nom={acteur.nom} adresse={acteur.adresse} />
+                <CommentVenirClient lat={acteur.latitude} lon={acteur.longitude} nom={acteur.nom} adresse={acteur.adresse} />
               </div>
             )}
           </div>

@@ -3,6 +3,7 @@
 
 import { PrismaClient } from '@prisma/client'
 import bcrypt from 'bcryptjs'
+import { checkPasswordStrength } from '../src/lib/password-policy'
 
 const prisma = new PrismaClient()
 
@@ -14,6 +15,9 @@ async function main() {
   if (!adminPassword) throw new Error('ADMIN_PASSWORD env var manquant')
   const adminEmail = process.env.ADMIN_EMAIL
   if (!adminEmail) throw new Error('ADMIN_EMAIL env var manquant')
+  // SEC-017 : refuse de semer un mot de passe admin faible ou présent dans une fuite
+  const pwCheck = checkPasswordStrength(adminPassword)
+  if (!pwCheck.ok) throw new Error(`ADMIN_PASSWORD rejeté : ${pwCheck.reason}`)
   const passwordHash = await bcrypt.hash(adminPassword, 12)
   const admin = await prisma.user.upsert({
     where: { email: adminEmail },

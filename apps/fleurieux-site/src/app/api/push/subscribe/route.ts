@@ -57,7 +57,19 @@ export async function DELETE(req: NextRequest) {
       return NextResponse.json({ error: 'endpoint invalide' }, { status: 400 })
     }
 
-    await prisma.pushSubscription.deleteMany({ where: { endpoint: endpoint.data } })
+    // M1 : un abonnement rattaché à un compte n'est supprimable que par ce compte.
+    // Les abonnements anonymes (userId null) restent désabonnables via l'endpoint
+    // (qui agit comme capacité : seul le navigateur propriétaire le connaît).
+    const session = await auth.api.getSession({ headers: req.headers }).catch(() => null)
+    await prisma.pushSubscription.deleteMany({
+      where: {
+        endpoint: endpoint.data,
+        OR: [
+          { userId: null },
+          ...(session ? [{ userId: session.user.id }] : []),
+        ],
+      },
+    })
     return NextResponse.json({ ok: true })
   } catch (err) {
     logger.error('[DELETE /api/push/subscribe]', { error: String(err) })

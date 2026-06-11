@@ -16,25 +16,40 @@ datasource db {
 // ─────────────────────────────────────────────
 
 model User {
-  id            String    @id @default(cuid())
-  email         String    @unique
-  emailVerified Boolean   @default(false)
-  name          String
-  prenom        String?
-  image         String?
-  role          Role      @default(HABITANT)
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
+  id              String    @id @default(cuid())
+  email           String    @unique
+  emailVerified   Boolean   @default(false)
+  name            String
+  prenom          String?
+  image           String?
+  role            Role      @default(HABITANT)
+  twoFactorEnabled Boolean  @default(false)
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
 
   // Relations
   sessions      Session[]
   accounts      Account[]
+  twoFactors    TwoFactor[]
   acteurs       Acteur[]        @relation("ContributeurActeur")
   evenements    Evenement[]     @relation("ContributeurEvenement")
   actus         Actu[]
   randos        Rando[]         @relation("ContributeurRando")
 
   @@map("users")
+}
+
+// SEC-018 : secret TOTP + codes de secours (Better Auth twoFactor plugin)
+model TwoFactor {
+  id          String @id @default(cuid())
+  userId      String
+  secret      String
+  backupCodes String
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("two_factors")
 }
 
 model Session {

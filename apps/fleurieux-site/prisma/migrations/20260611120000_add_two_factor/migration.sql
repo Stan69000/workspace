@@ -9,6 +9,7 @@ CREATE TABLE "two_factors" (
     "userId" TEXT NOT NULL,
     "secret" TEXT NOT NULL,
     "backupCodes" TEXT NOT NULL,
+    "verified" BOOLEAN NOT NULL DEFAULT false,
 
     CONSTRAINT "two_factors_pkey" PRIMARY KEY ("id")
 );

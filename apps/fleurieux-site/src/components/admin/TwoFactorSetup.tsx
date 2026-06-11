@@ -37,7 +37,11 @@ export function TwoFactorSetup({ initialEnabled }: { initialEnabled: boolean }) 
     try {
       const { data, error } = await twoFactor.enable({ password })
       if (error || !data) {
-        setError(error?.message ?? 'Mot de passe incorrect.')
+        // 401/400 = mauvais mot de passe ; autre code = erreur serveur réelle.
+        const msg = error?.status === 401 || error?.status === 400
+          ? 'Mot de passe incorrect.'
+          : error?.message || 'Échec de l\'activation de la 2FA. Réessayez.'
+        setError(msg)
         setLoading(false)
         return
       }

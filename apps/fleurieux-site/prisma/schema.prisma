@@ -41,10 +41,11 @@ model User {
 
 // SEC-018 : secret TOTP + codes de secours (Better Auth twoFactor plugin)
 model TwoFactor {
-  id          String @id @default(cuid())
+  id          String  @id @default(cuid())
   userId      String
   secret      String
   backupCodes String
+  verified    Boolean @default(false)
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 

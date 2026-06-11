@@ -4,6 +4,7 @@ import { ActeurCard } from '@/components/public/ActeurCard'
 import { Card } from '@/components/ui/Card'
 import { formatDate, formatDateRelative } from '@/lib/utils'
 import { PushNotifButton } from '@/components/public/PushNotifButton'
+import { MeteoWidget } from '@/components/public/MeteoWidget'
 
 export const revalidate = 300 // 5 min
 
@@ -55,6 +56,11 @@ export default async function HomePage() {
             <PushNotifButton />
           </div>
         </div>
+      </section>
+
+      {/* Météo · heure · saint du jour */}
+      <section aria-label="Météo locale">
+        <MeteoWidget />
       </section>
 
       {/* Prochain événement */}

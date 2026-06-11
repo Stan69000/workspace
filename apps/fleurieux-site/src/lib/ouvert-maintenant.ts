@@ -6,9 +6,15 @@ export type StatutOuverture = {
   ouvert: boolean
   label: string
   fermeture?: string | null
+  indetermine?: boolean
 }
 
 export function getStatutOuverture(horaires: Horaire[], horairesNote?: string | null): StatutOuverture {
+  // Pas d'horaires fixes (ex. traiteur sur commande) : pas de statut ouvert/fermé
+  if (horaires.length === 0) {
+    return { ouvert: false, indetermine: true, label: horairesNote ? 'Sur commande' : 'Horaires non communiqués' }
+  }
+
   const jour = jourCourant()
   const horaire = horaires.find(h => h.jour === jour)
 

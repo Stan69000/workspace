@@ -1,13 +1,12 @@
-import dynamic from 'next/dynamic'
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 import { prisma } from '@/lib/prisma'
 import { OuvertMaintenant } from '@/components/public/OuvertMaintenant'
 import { Badge } from '@/components/ui/Badge'
-import { formatEtoiles, JOURS_FR } from '@/lib/utils'
+import { JOURS_FR } from '@/lib/utils'
 import { localBusinessSchema } from '@/lib/schema-org'
-
-const CommentVenir = dynamic(() => import('@/components/public/CommentVenir').then(m => m.CommentVenir), { ssr: false })
+import { CommentVenirClient } from '@/components/public/CommentVenirClient'
+import { IconMapPin, IconPhone, IconMail, IconGlobe, IconInstagram } from '@/components/ui/icons'
 
 interface Props { params: Promise<{ slug: string }> }
 
@@ -18,7 +17,6 @@ async function getActeur(slug: string) {
       categorie: true,
       horaires: { orderBy: { jour: 'asc' } },
       photos: { orderBy: { ordre: 'asc' } },
-      avis: { where: { statut: 'APPROUVE' }, orderBy: { createdAt: 'desc' }, take: 10 },
     },
   })
 }
@@ -55,13 +53,6 @@ export default async function ActeurPage({ params }: Props) {
             <h1 className="mt-1 text-3xl font-bold text-gray-900 dark:text-gray-100">
               <span aria-hidden="true">{acteur.emoji} </span>{acteur.nom}
             </h1>
-            {acteur.noteAverage && acteur.nbAvis > 0 && (
-              <p className="mt-1 text-amber-500">
-                <span aria-hidden="true">{formatEtoiles(acteur.noteAverage)}</span>
-                <span className="sr-only">Note : {acteur.noteAverage.toFixed(1)} sur 5</span>
-                {' '}<span className="text-sm text-gray-600 dark:text-gray-400">({acteur.nbAvis} avis)</span>
-              </p>
-            )}
           </div>
           <OuvertMaintenant horaires={acteur.horaires} horairesNote={acteur.horairesNote} />
         </div>
@@ -71,7 +62,7 @@ export default async function ActeurPage({ params }: Props) {
             {/* Description */}
             {acteur.descriptionLongue && (
               <div className="prose prose-sm max-w-none dark:prose-invert">
-                <p>{acteur.descriptionLongue}</p>
+                <p className="whitespace-pre-line">{acteur.descriptionLongue}</p>
               </div>
             )}
 
@@ -93,27 +84,6 @@ export default async function ActeurPage({ params }: Props) {
               </div>
             )}
 
-            {/* Avis */}
-            {acteur.avis.length > 0 && (
-              <div>
-                <h2 className="mb-3 font-semibold text-gray-900 dark:text-gray-100">Avis</h2>
-                <div className="space-y-3">
-                  {acteur.avis.map(avis => (
-                    <div key={avis.id} className="rounded-lg border border-gray-100 p-3 dark:border-gray-800">
-                      <div className="flex items-center gap-2">
-                        <span className="text-amber-400 text-sm">
-                          <span aria-hidden="true">{formatEtoiles(avis.note)}</span>
-                          <span className="sr-only">Note : {avis.note} sur 5</span>
-                        </span>
-                        {avis.prenomAuteur && <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{avis.prenomAuteur}</span>}
-                        {avis.estHabitant && <Badge variant="green">Habitant</Badge>}
-                      </div>
-                      {avis.texte && <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">{avis.texte}</p>}
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
           </div>
 
           {/* Sidebar */}
@@ -121,16 +91,16 @@ export default async function ActeurPage({ params }: Props) {
             {/* Infos contact */}
             <div className="rounded-xl border border-gray-200 p-4 dark:border-gray-700 space-y-2">
               {acteur.adresse && (
-                <p className="text-sm text-gray-600 dark:text-gray-400">
-                  <span aria-hidden="true">📍 </span>
+                <p className="flex items-start gap-2 text-sm text-gray-600 dark:text-gray-400">
+                  <IconMapPin className="mt-0.5 h-4 w-4 shrink-0 text-gray-500 dark:text-gray-400" />
                   <span className="sr-only">Adresse : </span>
-                  {acteur.adresse}, {acteur.codePostal} {acteur.ville}
+                  <span>{acteur.adresse}, {acteur.codePostal} {acteur.ville}</span>
                 </p>
               )}
               {acteur.telephone && (
                 <p className="text-sm">
-                  <a href={`tel:${acteur.telephone}`} className="text-village-600 hover:underline dark:text-village-400">
-                    <span aria-hidden="true">📞 </span>
+                  <a href={`tel:${acteur.telephone}`} className="flex items-center gap-2 text-village-600 hover:underline dark:text-village-400">
+                    <IconPhone className="h-4 w-4 shrink-0" />
                     <span className="sr-only">Téléphone : </span>
                     {acteur.telephone}
                   </a>
@@ -138,8 +108,8 @@ export default async function ActeurPage({ params }: Props) {
               )}
               {acteur.email && (
                 <p className="text-sm">
-                  <a href={`mailto:${acteur.email}`} className="text-village-600 hover:underline dark:text-village-400">
-                    <span aria-hidden="true">✉️ </span>
+                  <a href={`mailto:${acteur.email}`} className="flex items-center gap-2 text-village-600 hover:underline dark:text-village-400">
+                    <IconMail className="h-4 w-4 shrink-0" />
                     <span className="sr-only">E-mail : </span>
                     {acteur.email}
                   </a>
@@ -147,8 +117,16 @@ export default async function ActeurPage({ params }: Props) {
               )}
               {acteur.siteWeb && (
                 <p className="text-sm">
-                  <a href={acteur.siteWeb} target="_blank" rel="noopener noreferrer" className="text-village-600 hover:underline dark:text-village-400">
-                    <span aria-hidden="true">🌐 </span>Site web
+                  <a href={acteur.siteWeb} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-village-600 hover:underline dark:text-village-400">
+                    <IconGlobe className="h-4 w-4 shrink-0" />Site web
+                    <span className="sr-only">(ouvre dans un nouvel onglet)</span>
+                  </a>
+                </p>
+              )}
+              {acteur.instagram && (
+                <p className="text-sm">
+                  <a href={acteur.instagram} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-village-600 hover:underline dark:text-village-400">
+                    <IconInstagram className="h-4 w-4 shrink-0" />Instagram
                     <span className="sr-only">(ouvre dans un nouvel onglet)</span>
                   </a>
                 </p>
@@ -166,7 +144,7 @@ export default async function ActeurPage({ params }: Props) {
             {acteur.latitude && acteur.longitude && (
               <div>
                 <h2 className="mb-2 font-semibold text-gray-900 dark:text-gray-100">Comment venir</h2>
-                <CommentVenir lat={acteur.latitude} lon={acteur.longitude} nom={acteur.nom} adresse={acteur.adresse} />
+                <CommentVenirClient lat={acteur.latitude} lon={acteur.longitude} nom={acteur.nom} adresse={acteur.adresse} />
               </div>
             )}
           </div>

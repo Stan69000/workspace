@@ -3,7 +3,6 @@ import { useEffect, useRef } from 'react'
 import Link from 'next/link'
 import type { ActeurMapData } from '@/types'
 import { getStatutOuverture } from '@/lib/ouvert-maintenant'
-import { formatEtoiles } from '@/lib/utils'
 import { cn } from '@/lib/utils'
 
 interface Props {
@@ -95,18 +94,6 @@ export function ActeurPanneauLateral({ acteur, onFermer }: Props) {
                 )}>
                   <span className="w-2 h-2 rounded-full bg-current" aria-hidden="true" />
                   {statut.label}
-                </div>
-              )}
-
-              {/* Note */}
-              {acteur.noteAverage != null && acteur.nbAvis > 0 && (
-                <div className="flex items-center gap-2">
-                  <span className="text-amber-500" aria-label={`Note : ${acteur.noteAverage} sur 5`}>
-                    {formatEtoiles(acteur.noteAverage)}
-                  </span>
-                  <span className="text-sm text-gray-500 dark:text-gray-400">
-                    ({acteur.nbAvis} avis)
-                  </span>
                 </div>
               )}
 

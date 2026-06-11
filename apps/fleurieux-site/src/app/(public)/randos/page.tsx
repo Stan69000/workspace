@@ -1,8 +1,10 @@
 import Link from 'next/link'
 import type { Metadata } from 'next'
+import { notFound } from 'next/navigation'
 import { prisma } from '@/lib/prisma'
 import { Card } from '@/components/ui/Card'
 import { Badge } from '@/components/ui/Badge'
+import { moduleActif } from '@/lib/modules'
 
 export const metadata: Metadata = { title: 'Randonnées' }
 export const revalidate = 3600
@@ -15,6 +17,8 @@ const DIFFICULTE_LABEL: Record<string, string> = {
 }
 
 export default async function RandosPage() {
+  if (!(await moduleActif('randos'))) notFound()
+
   const randos = await prisma.rando.findMany({
     where: { statut: 'PUBLIE' },
     orderBy: { difficulte: 'asc' },
@@ -48,6 +52,11 @@ export default async function RandosPage() {
               </div>
 
               {rando.depart && <p className="text-sm text-gray-600 dark:text-gray-400">Départ : {rando.depart}</p>}
+              {rando.sourceNom && (
+                <p className="text-xs text-gray-400">
+                  {rando.noteSource ? `${rando.noteSource.toFixed(1)}/5 · ` : ''}via {rando.sourceNom}
+                </p>
+              )}
             </Card>
           </Link>
         ))}

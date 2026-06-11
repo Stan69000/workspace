@@ -33,3 +33,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# pnpm monorepo — pas de lockfile npm
+package-lock.json
+yarn.lock

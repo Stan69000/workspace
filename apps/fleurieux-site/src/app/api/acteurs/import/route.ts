@@ -16,6 +16,7 @@ const rowSchema = z.object({
   telephone: z.string().optional(),
   email: z.string().email().optional().or(z.literal('')),
   siteWeb: z.string().url().optional().or(z.literal('')),
+  instagram: z.string().url().optional().or(z.literal('')),
   statut: z.enum(['PUBLIE', 'BROUILLON']).default('BROUILLON'),
 })
 
@@ -69,6 +70,7 @@ export async function POST(req: NextRequest) {
           telephone: row.telephone ?? null,
           email: row.email || null,
           siteWeb: row.siteWeb || null,
+          instagram: row.instagram || null,
           statut: row.statut,
           latitude,
           longitude,

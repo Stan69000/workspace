@@ -10,6 +10,7 @@ const LINKS: { href: string; label: string; module?: string }[] = [
   { href: '/agenda',          label: 'Agenda',          module: 'agenda' },
   { href: '/infos-pratiques', label: 'Infos pratiques', module: 'infos-pratiques' },
   { href: '/annonces',        label: 'Annonces',        module: 'annonces' },
+  { href: '/transports',      label: 'Transports',      module: 'transports' },
   { href: '/randos',          label: 'Randonnées',      module: 'randos' },
   { href: '/actus',           label: 'Actualités',      module: 'actus' },
 ]

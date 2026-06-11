@@ -3,6 +3,7 @@ import { z } from 'zod'
 import { prisma } from '@/lib/prisma'
 import { auth } from '@/lib/auth'
 import { logger } from '@/lib/logger'
+import { ALL_TOPIC_KEYS } from '@/lib/push-topics'
 
 const subscribeSchema = z.object({
   endpoint: z.string().url(),
@@ -10,6 +11,7 @@ const subscribeSchema = z.object({
     p256dh: z.string().min(1),
     auth: z.string().min(1),
   }),
+  topics: z.array(z.string()).max(10).optional(),
 })
 
 export async function POST(req: NextRequest) {
@@ -21,6 +23,7 @@ export async function POST(req: NextRequest) {
     }
 
     const session = await auth.api.getSession({ headers: req.headers }).catch(() => null)
+    const topics = parsed.data.topics ?? ALL_TOPIC_KEYS
 
     await prisma.pushSubscription.upsert({
       where: { endpoint: parsed.data.endpoint },
@@ -28,12 +31,14 @@ export async function POST(req: NextRequest) {
         p256dh: parsed.data.keys.p256dh,
         auth: parsed.data.keys.auth,
         userId: session?.user.id ?? null,
+        topics,
       },
       create: {
         endpoint: parsed.data.endpoint,
         p256dh: parsed.data.keys.p256dh,
         auth: parsed.data.keys.auth,
         userId: session?.user.id ?? null,
+        topics,
       },
     })
 

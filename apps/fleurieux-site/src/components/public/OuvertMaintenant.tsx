@@ -12,8 +12,8 @@ export function OuvertMaintenant({ horaires, horairesNote }: Props) {
 
   return (
     <div className="flex flex-col gap-1">
-      <Badge variant={statut.ouvert ? 'green' : 'red'}>
-        <span aria-hidden="true">{statut.ouvert ? '● ' : '○ '}</span>
+      <Badge variant={statut.indetermine ? 'gray' : statut.ouvert ? 'green' : 'red'}>
+        <span aria-hidden="true">{statut.indetermine ? '◦ ' : statut.ouvert ? '● ' : '○ '}</span>
         {statut.label}
       </Badge>
       {horairesNote && (

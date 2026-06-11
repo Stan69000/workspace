@@ -59,7 +59,6 @@ async function main() {
       descriptionLongue: "Le Jardin Fleurinois est un GAEC maraîcher installé à Fleurieux-sur-l'Arbresle depuis 2015. David et Catherine Perrelle y cultivent des légumes de saison en agriculture raisonnée, vendus chaque vendredi en vente directe sur l'exploitation.",
       categorieId: categories[0].id,
       statut: 'PUBLIE',
-      miseEnAvant: true,
       adresse: 'Route du Jardin',
       codePostal: '69210',
       ville: "Fleurieux-sur-l'Arbresle",
@@ -67,8 +66,6 @@ async function main() {
       accepteCB: true,
       accepteCheque: true,
       horairesNote: 'Fermé en août. Paniers sur commande possible.',
-      noteAverage: 4.8,
-      nbAvis: 24,
       horaires: {
         create: [
           { jour: 'LUNDI',    ouvert: false },
@@ -94,12 +91,9 @@ async function main() {
       descriptionLongue: "Le nouveau repaire du village. Place des deux chouettes, concerts de jazz réguliers, ambiance chaleureuse et cuisine maison.",
       categorieId: categories[2].id,
       statut: 'PUBLIE',
-      miseEnAvant: true,
       adresse: 'Place des deux chouettes',
       codePostal: '69210',
       ville: "Fleurieux-sur-l'Arbresle",
-      noteAverage: 4.2,
-      nbAvis: 11,
     }
   })
 
@@ -114,10 +108,7 @@ async function main() {
       descriptionLongue: "Les Maisons des Jeunes et de la Culture sont ouvertes à tous. Ateliers créatifs, centre de loisirs, activités culturelles et sportives toute l'année.",
       categorieId: categories[3].id,
       statut: 'PUBLIE',
-      miseEnAvant: true,
       adresse: 'Chemin de la MJC',
-      noteAverage: 4.9,
-      nbAvis: 38,
     }
   })
 

@@ -1,12 +1,16 @@
 import type { Metadata } from 'next'
+import { notFound } from 'next/navigation'
 import { prisma } from '@/lib/prisma'
 import { Card } from '@/components/ui/Card'
+import { moduleActif } from '@/lib/modules'
 import { formatDate } from '@/lib/utils'
 
 export const metadata: Metadata = { title: 'Actualités' }
 export const revalidate = 300
 
 export default async function ActusPage() {
+  if (!(await moduleActif('actus'))) notFound()
+
   const actus = await prisma.actu.findMany({
     where: { statut: 'PUBLIE' },
     orderBy: { publishedAt: 'desc' },

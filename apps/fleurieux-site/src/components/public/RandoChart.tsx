@@ -32,28 +32,31 @@ export function RandoChart({ distanceKm, deniveleM, altitudeDepart = 320 }: Prop
   return (
     <div className="rounded-xl border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-900">
       <p className="mb-3 text-sm font-medium text-gray-700 dark:text-gray-300">Profil altimétrique (estimé)</p>
-      <Line
-        data={{
-          labels,
-          datasets: [{
-            label: 'Altitude (m)',
-            data,
-            borderColor: '#16a34a',
-            backgroundColor: 'rgba(22, 163, 74, 0.1)',
-            fill: true,
-            tension: 0.4,
-            pointRadius: 0,
-          }],
-        }}
-        options={{
-          responsive: true,
-          plugins: { legend: { display: false } },
-          scales: {
-            y: { title: { display: true, text: 'Altitude (m)' }, grid: { color: 'rgba(0,0,0,0.05)' } },
-            x: { ticks: { maxTicksLimit: 6 } },
-          },
-        }}
-      />
+      <div className="h-40 sm:h-48">
+        <Line
+          data={{
+            labels,
+            datasets: [{
+              label: 'Altitude (m)',
+              data,
+              borderColor: '#16a34a',
+              backgroundColor: 'rgba(22, 163, 74, 0.1)',
+              fill: true,
+              tension: 0.4,
+              pointRadius: 0,
+            }],
+          }}
+          options={{
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+            scales: {
+              y: { title: { display: true, text: 'Altitude (m)' }, grid: { color: 'rgba(0,0,0,0.05)' } },
+              x: { ticks: { maxTicksLimit: 6 } },
+            },
+          }}
+        />
+      </div>
     </div>
   )
 }

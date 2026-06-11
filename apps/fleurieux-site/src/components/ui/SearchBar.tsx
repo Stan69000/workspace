@@ -8,10 +8,11 @@ interface SearchBarProps {
   className?: string
   onSearch?: (query: string) => void
   globalSearch?: boolean
+  defaultValue?: string
 }
 
-export function SearchBar({ placeholder = 'Rechercher...', className, onSearch, globalSearch = false }: SearchBarProps) {
-  const [query, setQuery] = useState('')
+export function SearchBar({ placeholder = 'Rechercher...', className, onSearch, globalSearch = false, defaultValue = '' }: SearchBarProps) {
+  const [query, setQuery] = useState(defaultValue)
   const router = useRouter()
 
   function handleSubmit(e: React.FormEvent) {

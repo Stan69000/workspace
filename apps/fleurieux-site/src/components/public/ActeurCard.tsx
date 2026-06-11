@@ -3,7 +3,6 @@ import Image from 'next/image'
 import type { ActeurCarte } from '@/types'
 import { Card } from '@/components/ui/Card'
 import { Badge } from '@/components/ui/Badge'
-import { formatEtoiles } from '@/lib/utils'
 
 interface Props {
   acteur: ActeurCarte
@@ -22,11 +21,6 @@ export function ActeurCard({ acteur }: Props) {
           ) : (
             <div className="flex h-full items-center justify-center text-4xl" aria-hidden="true">{acteur.emoji ?? '🏪'}</div>
           )}
-          {acteur.miseEnAvant && (
-            <span className="absolute right-2 top-2 rounded-full bg-yellow-400 px-2 py-0.5 text-xs font-semibold text-yellow-900">
-              <span aria-hidden="true">⭐ </span>En avant
-            </span>
-          )}
         </div>
 
         {/* Contenu */}
@@ -44,21 +38,11 @@ export function ActeurCard({ acteur }: Props) {
             <p className="text-sm text-gray-500 dark:text-gray-400 line-clamp-2">{acteur.description}</p>
           )}
 
-          <div className="mt-auto flex items-center justify-between">
-            {acteur.noteAverage && acteur.nbAvis > 0 ? (
-              <span className="text-sm text-amber-500">
-                <span aria-hidden="true">{formatEtoiles(acteur.noteAverage)}</span>
-                <span className="sr-only">Note : {acteur.noteAverage.toFixed(1)} sur 5</span>
-                {' '}<span className="text-gray-600 dark:text-gray-400 text-sm" aria-hidden="true">({acteur.nbAvis})</span>
-                <span className="sr-only">({acteur.nbAvis} avis)</span>
-              </span>
-            ) : (
-              <span className="text-sm text-gray-600 dark:text-gray-400">Pas encore d&apos;avis</span>
-            )}
-            {acteur.telephone && (
+          {acteur.telephone && (
+            <div className="mt-auto flex items-center justify-end">
               <Badge variant="gray" className="text-sm">{acteur.telephone}</Badge>
-            )}
-          </div>
+            </div>
+          )}
         </div>
       </Card>
     </Link>

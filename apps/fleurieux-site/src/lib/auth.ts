@@ -2,6 +2,7 @@
 
 import { betterAuth } from 'better-auth'
 import { prismaAdapter } from 'better-auth/adapters/prisma'
+import bcrypt from 'bcryptjs'
 import { prisma } from './prisma'
 
 // NEW-003 : BETTER_AUTH_SECRET doit être défini avant le démarrage
@@ -15,9 +16,22 @@ export const auth = betterAuth({
   }),
   secret: process.env.BETTER_AUTH_SECRET,
 
+  // Origines autorisées (corrige « Invalid origin »). Dev + domaine de prod.
+  trustedOrigins: [
+    'http://localhost:3000',
+    'http://localhost:3001',
+    'http://localhost:3002',
+    ...(process.env.NEXT_PUBLIC_BASE_URL ? [process.env.NEXT_PUBLIC_BASE_URL] : []),
+  ],
+
   emailAndPassword: {
     enabled: true,
     disableSignUp: true,
+    // Les mots de passe sont hachés en bcrypt (cf. prisma/seed.ts) — on aligne Better Auth dessus.
+    password: {
+      hash: (password) => bcrypt.hash(password, 12),
+      verify: ({ password, hash }) => bcrypt.compare(password, hash),
+    },
   },
 
   // SEC-005 : session réduite à 7 jours (était 30)

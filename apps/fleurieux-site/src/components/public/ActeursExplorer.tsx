@@ -6,7 +6,7 @@ import Image from 'next/image'
 import type { ActeurMapData } from '@/types'
 import type { Categorie } from '@prisma/client'
 import { getStatutOuverture } from '@/lib/ouvert-maintenant'
-import { formatEtoiles, cn } from '@/lib/utils'
+import { cn } from '@/lib/utils'
 import { Card } from '@/components/ui/Card'
 
 const ActeursMap = dynamic(
@@ -35,13 +35,16 @@ export function ActeursExplorer({ acteurs, categories }: Props) {
   const [search, setSearch] = useState('')
   const [categorieSlug, setCategorieSlug] = useState('')
   const [ouvertSeulement, setOuvertSeulement] = useState(false)
+  const [position, setPosition] = useState<{ lat: number; lon: number } | null>(null)
+  const [triDistance, setTriDistance] = useState(false)
+  const [geoErreur, setGeoErreur] = useState('')
   const [acteurSelectionne, setActeurSelectionne] = useState<ActeurMapData | null>(null)
   const [vueMobile, setVueMobile] = useState<Vue>('liste')
   const listRef = useRef<HTMLDivElement>(null)
 
   const acteursFiltres = useMemo(() => {
     const q = search.toLowerCase().trim()
-    return acteurs.filter(a => {
+    const filtres = acteurs.filter(a => {
       if (categorieSlug && a.categorie.slug !== categorieSlug) return false
       if (q && !a.nom.toLowerCase().includes(q) && !(a.description ?? '').toLowerCase().includes(q)) return false
       if (ouvertSeulement) {
@@ -53,7 +56,28 @@ export function ActeursExplorer({ acteurs, categories }: Props) {
       }
       return true
     })
-  }, [acteurs, search, categorieSlug, ouvertSeulement])
+    if (triDistance && position) {
+      return filtres
+        .map(a => ({
+          ...a,
+          distanceKm: a.latitude != null && a.longitude != null
+            ? haversineKm(position.lat, position.lon, a.latitude, a.longitude)
+            : undefined,
+        }))
+        .sort((x, y) => (x.distanceKm ?? Infinity) - (y.distanceKm ?? Infinity))
+    }
+    return filtres
+  }, [acteurs, search, categorieSlug, ouvertSeulement, triDistance, position])
+
+  const autourDeMoi = useCallback(() => {
+    if (triDistance) { setTriDistance(false); return }
+    if (!('geolocation' in navigator)) { setGeoErreur('Géolocalisation non disponible.'); return }
+    navigator.geolocation.getCurrentPosition(
+      pos => { setPosition({ lat: pos.coords.latitude, lon: pos.coords.longitude }); setTriDistance(true); setGeoErreur('') },
+      () => setGeoErreur('Localisation refusée.'),
+      { enableHighAccuracy: false, timeout: 8000, maximumAge: 300000 },
+    )
+  }, [triDistance])
 
   const handleSelectActeur = useCallback((acteur: ActeurMapData) => {
     setActeurSelectionne(acteur)
@@ -133,6 +157,20 @@ export function ActeursExplorer({ acteurs, categories }: Props) {
             <span aria-hidden="true">🟢</span> Ouvert maintenant
           </button>
 
+          {/* Autour de moi */}
+          <button
+            onClick={autourDeMoi}
+            className={cn(
+              'rounded-full px-3 py-1 text-sm font-medium transition-colors border',
+              triDistance
+                ? 'border-village-600 bg-village-50 text-village-700 dark:bg-village-900/20 dark:text-village-400'
+                : 'border-gray-300 text-gray-600 hover:border-gray-400 dark:border-gray-700 dark:text-gray-400',
+            )}
+            aria-pressed={triDistance}
+          >
+            <span aria-hidden="true">📍</span> Autour de moi
+          </button>
+
           {/* Toggle liste/carte — mobile seulement */}
           <div
             className="flex gap-1 rounded-lg border border-gray-200 p-0.5 dark:border-gray-700 lg:hidden"
@@ -164,7 +202,9 @@ export function ActeursExplorer({ acteurs, categories }: Props) {
 
         <p className="text-sm text-gray-500 dark:text-gray-400" aria-live="polite" aria-atomic="true">
           {acteursFiltres.length} acteur{acteursFiltres.length > 1 ? 's' : ''} affiché{acteursFiltres.length > 1 ? 's' : ''}
+          {triDistance && <span> · triés par distance</span>}
         </p>
+        {geoErreur && <p className="text-sm text-red-600 dark:text-red-400">{geoErreur}</p>}
       </section>
 
       {/* ── Vue split desktop / toggle mobile ──────────── */}
@@ -226,6 +266,22 @@ export function ActeursExplorer({ acteurs, categories }: Props) {
   )
 }
 
+/* ── Distance (Haversine) ─────────────────────────────── */
+
+function haversineKm(lat1: number, lon1: number, lat2: number, lon2: number): number {
+  const R = 6371
+  const dLat = ((lat2 - lat1) * Math.PI) / 180
+  const dLon = ((lon2 - lon1) * Math.PI) / 180
+  const a = Math.sin(dLat / 2) ** 2
+    + Math.cos((lat1 * Math.PI) / 180) * Math.cos((lat2 * Math.PI) / 180) * Math.sin(dLon / 2) ** 2
+  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
+}
+
+function formatDistance(km: number): string {
+  if (km < 1) return `à ${Math.round(km * 1000)} m`
+  return `à ${km.toFixed(1).replace('.', ',')} km`
+}
+
 /* ── Card compacte pour la liste ──────────────────────── */
 
 interface CardProps {
@@ -262,11 +318,8 @@ function ActeurCardCompacte({ acteur, selectionne, onSelectCarte }: CardProps) {
       <div className="min-w-0 flex-1">
         <p className="text-xs text-village-600 dark:text-village-400">{acteur.categorie.nom}</p>
         <h3 className="font-semibold text-gray-900 dark:text-gray-100 truncate">{acteur.nom}</h3>
-        {acteur.noteAverage != null && acteur.nbAvis > 0 && (
-          <span className="text-xs text-amber-500" aria-label={`Note : ${acteur.noteAverage} sur 5`}>
-            {formatEtoiles(acteur.noteAverage)}
-            <span className="text-gray-400 ml-1">({acteur.nbAvis})</span>
-          </span>
+        {acteur.distanceKm != null && (
+          <p className="text-xs text-gray-400">{formatDistance(acteur.distanceKm)}</p>
         )}
       </div>
 

@@ -6,6 +6,9 @@ import path from 'path'
 const nextConfig: NextConfig = {
   output: 'standalone',
 
+  // Monorepo : fixe la racine de file-tracing pour éviter l'inférence (warning multi-lockfiles)
+  outputFileTracingRoot: path.resolve(__dirname, '../..'),
+
   serverExternalPackages: ['@prisma/client', 'prisma'],
 
   webpack(config) {

@@ -1,22 +1,25 @@
+import { Suspense } from 'react'
 import Link from 'next/link'
 import { prisma } from '@/lib/prisma'
 import { ActeurCard } from '@/components/public/ActeurCard'
 import { Card } from '@/components/ui/Card'
 import { formatDate, formatDateRelative } from '@/lib/utils'
 import { PushNotifButton } from '@/components/public/PushNotifButton'
+import { AlerteBanner } from '@/components/public/AlerteBanner'
+import { Meteo } from '@/components/public/Meteo'
 
 export const revalidate = 300 // 5 min
 
 export default async function HomePage() {
-  const [acteursEnAvant, prochainEvenement, derniereActus] = await Promise.all([
+  const [acteursRecents, prochainEvenement, derniereActus] = await Promise.all([
     prisma.acteur.findMany({
-      where: { statut: 'PUBLIE', miseEnAvant: true },
+      where: { statut: 'PUBLIE' },
       take: 3,
-      orderBy: { noteAverage: 'desc' },
+      orderBy: { createdAt: 'desc' },
       select: {
         id: true, slug: true, nom: true, emoji: true, description: true,
-        adresse: true, telephone: true, noteAverage: true, nbAvis: true,
-        statut: true, miseEnAvant: true,
+        adresse: true, telephone: true,
+        statut: true,
         categorie: { select: { nom: true, slug: true, emoji: true } },
         photos: { take: 1, select: { url: true, alt: true }, orderBy: { ordre: 'asc' } },
       },
@@ -35,6 +38,9 @@ export default async function HomePage() {
 
   return (
     <div className="space-y-12">
+      {/* Alertes en cours */}
+      <AlerteBanner />
+
       {/* Hero */}
       <section aria-labelledby="hero-titre">
         <div className="hero-section rounded-2xl bg-gradient-to-br from-village-600 to-village-800 px-8 py-14 text-white">
@@ -56,6 +62,11 @@ export default async function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* Météo locale */}
+      <Suspense fallback={null}>
+        <Meteo />
+      </Suspense>
 
       {/* Prochain événement */}
       {prochainEvenement && (
@@ -83,11 +94,11 @@ export default async function HomePage() {
         </section>
       )}
 
-      {/* Acteurs en avant */}
-      {acteursEnAvant.length > 0 && (
+      {/* Derniers acteurs ajoutés */}
+      {acteursRecents.length > 0 && (
         <section aria-labelledby="une-titre">
           <div className="mb-4 flex items-center justify-between">
-            <h2 id="une-titre" className="text-xl font-bold text-gray-900 dark:text-gray-100">À la une</h2>
+            <h2 id="une-titre" className="text-xl font-bold text-gray-900 dark:text-gray-100">Derniers ajouts</h2>
             <Link
               href="/acteurs"
               aria-label="Voir tous les acteurs locaux"
@@ -97,7 +108,7 @@ export default async function HomePage() {
             </Link>
           </div>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {acteursEnAvant.map(a => <ActeurCard key={a.id} acteur={a} />)}
+            {acteursRecents.map(a => <ActeurCard key={a.id} acteur={a} />)}
           </div>
         </section>
       )}

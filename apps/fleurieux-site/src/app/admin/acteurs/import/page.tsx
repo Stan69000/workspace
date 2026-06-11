@@ -16,7 +16,7 @@ type ImportResult = {
 const REQUIRED_COLUMNS = ['nom', 'slug', 'categorieSlug']
 const ALL_COLUMNS = [
   'nom', 'slug', 'categorieSlug', 'description', 'adresse',
-  'codePostal', 'ville', 'telephone', 'email', 'siteWeb', 'statut',
+  'codePostal', 'ville', 'telephone', 'email', 'siteWeb', 'instagram', 'statut',
 ]
 
 export default function ImportActeursPage() {

@@ -66,9 +66,21 @@ export type TrainAlert = {
   activePeriods: { start: number; end: number | null }[]
 }
 
+export type BusDeparture = {
+  line: string            // '216' | '218'
+  lineColor: string       // couleur officielle de la ligne (hex)
+  destination: string
+  stop: string            // arrêt à Fleurieux
+  departureTime: number   // Unix timestamp UTC (heure estimée temps réel)
+  delayMin: number
+  cancelled: boolean
+}
+
 export type TransportsData = {
   departures: TrainDeparture[]
   alerts: TrainAlert[]
+  buses: BusDeparture[]
+  busAvailable: boolean   // false si flux bus indisponible (creds manquants / erreur)
   fetchedAt: number       // Unix timestamp UTC
 }
 

@@ -1,0 +1,778 @@
+{
+  "meta": {
+    "generatedFrom": "GTFS TCL/SYTRAL",
+    "feedStart": "20260608",
+    "feedEnd": "20260817",
+    "count": 96
+  },
+  "entries": [
+    {
+      "line": "216",
+      "route_id": "2080",
+      "aimed": "06:32",
+      "dir": "1",
+      "destination": "Tarare",
+      "stop": "Servy"
+    },
+    {
+      "line": "216",
+      "route_id": "2080",
+      "aimed": "06:54",
+      "dir": "0",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Servy"
+    },
+    {
+      "line": "216",
+      "route_id": "2080",
+      "aimed": "07:59",
+      "dir": "0",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Servy"
+    },
+    {
+      "line": "216",
+      "route_id": "2080",
+      "aimed": "08:28",
+      "dir": "1",
+      "destination": "Tarare",
+      "stop": "Servy"
+    },
+    {
+      "line": "216",
+      "route_id": "2080",
+      "aimed": "08:37",
+      "dir": "0",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Servy"
+    },
+    {
+      "line": "216",
+      "route_id": "2080",
+      "aimed": "09:52",
+      "dir": "0",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Servy"
+    },
+    {
+      "line": "216",
+      "route_id": "2080",
+      "aimed": "10:33",
+      "dir": "1",
+      "destination": "Tarare",
+      "stop": "Servy"
+    },
+    {
+      "line": "216",
+      "route_id": "2080",
+      "aimed": "11:23",
+      "dir": "1",
+      "destination": "Tarare",
+      "stop": "Servy"
+    },
+    {
+      "line": "216",
+      "route_id": "2080",
+      "aimed": "11:39",
+      "dir": "0",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Servy"
+    },
+    {
+      "line": "216",
+      "route_id": "2080",
+      "aimed": "12:07",
+      "dir": "0",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Servy"
+    },
+    {
+      "line": "216",
+      "route_id": "2080",
+      "aimed": "13:07",
+      "dir": "0",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Servy"
+    },
+    {
+      "line": "216",
+      "route_id": "2080",
+      "aimed": "13:32",
+      "dir": "1",
+      "destination": "Tarare",
+      "stop": "Servy"
+    },
+    {
+      "line": "216",
+      "route_id": "2080",
+      "aimed": "13:38",
+      "dir": "1",
+      "destination": "Tarare",
+      "stop": "Servy"
+    },
+    {
+      "line": "216",
+      "route_id": "2080",
+      "aimed": "14:53",
+      "dir": "1",
+      "destination": "Tarare",
+      "stop": "Servy"
+    },
+    {
+      "line": "216",
+      "route_id": "2080",
+      "aimed": "18:08",
+      "dir": "1",
+      "destination": "Tarare",
+      "stop": "Servy"
+    },
+    {
+      "line": "216",
+      "route_id": "2080",
+      "aimed": "18:13",
+      "dir": "1",
+      "destination": "Tarare",
+      "stop": "Servy"
+    },
+    {
+      "line": "216",
+      "route_id": "2080",
+      "aimed": "18:22",
+      "dir": "1",
+      "destination": "Tarare",
+      "stop": "Servy"
+    },
+    {
+      "line": "216",
+      "route_id": "2080",
+      "aimed": "18:29",
+      "dir": "0",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Servy"
+    },
+    {
+      "line": "216",
+      "route_id": "2080",
+      "aimed": "18:34",
+      "dir": "0",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Servy"
+    },
+    {
+      "line": "216",
+      "route_id": "2080",
+      "aimed": "19:27",
+      "dir": "0",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Servy"
+    },
+    {
+      "line": "216",
+      "route_id": "2080",
+      "aimed": "19:37",
+      "dir": "0",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Servy"
+    },
+    {
+      "line": "216",
+      "route_id": "2080",
+      "aimed": "19:44",
+      "dir": "0",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Servy"
+    },
+    {
+      "line": "216",
+      "route_id": "2080",
+      "aimed": "20:02",
+      "dir": "1",
+      "destination": "Tarare",
+      "stop": "Servy"
+    },
+    {
+      "line": "216",
+      "route_id": "2080",
+      "aimed": "20:07",
+      "dir": "1",
+      "destination": "Tarare",
+      "stop": "Servy"
+    },
+    {
+      "line": "218",
+      "route_id": "5003",
+      "aimed": "06:37",
+      "dir": "1",
+      "destination": "L'Arbresle",
+      "stop": "Chemin du Buvet"
+    },
+    {
+      "line": "218",
+      "route_id": "5003",
+      "aimed": "06:38",
+      "dir": "1",
+      "destination": "L'Arbresle",
+      "stop": "ZI de Montépy"
+    },
+    {
+      "line": "218",
+      "route_id": "5003",
+      "aimed": "06:45",
+      "dir": "1",
+      "destination": "L'Arbresle",
+      "stop": "Le Servy"
+    },
+    {
+      "line": "218",
+      "route_id": "5003",
+      "aimed": "06:46",
+      "dir": "1",
+      "destination": "L'Arbresle",
+      "stop": "Mairie"
+    },
+    {
+      "line": "218",
+      "route_id": "5003",
+      "aimed": "07:07",
+      "dir": "0",
+      "destination": "Villefranche-sur-Saône",
+      "stop": "Mairie"
+    },
+    {
+      "line": "218",
+      "route_id": "5003",
+      "aimed": "07:08",
+      "dir": "0",
+      "destination": "Villefranche-sur-Saône",
+      "stop": "Le Servy"
+    },
+    {
+      "line": "218",
+      "route_id": "5003",
+      "aimed": "07:14",
+      "dir": "0",
+      "destination": "Villefranche-sur-Saône",
+      "stop": "ZI de Montépy"
+    },
+    {
+      "line": "218",
+      "route_id": "5003",
+      "aimed": "07:15",
+      "dir": "0",
+      "destination": "Villefranche-sur-Saône",
+      "stop": "Chemin du Buvet"
+    },
+    {
+      "line": "218",
+      "route_id": "5003",
+      "aimed": "07:36",
+      "dir": "1",
+      "destination": "L'Arbresle",
+      "stop": "Chemin du Buvet"
+    },
+    {
+      "line": "218",
+      "route_id": "5003",
+      "aimed": "07:37",
+      "dir": "1",
+      "destination": "L'Arbresle",
+      "stop": "ZI de Montépy"
+    },
+    {
+      "line": "218",
+      "route_id": "5003",
+      "aimed": "07:45",
+      "dir": "1",
+      "destination": "L'Arbresle",
+      "stop": "Le Servy"
+    },
+    {
+      "line": "218",
+      "route_id": "5003",
+      "aimed": "07:46",
+      "dir": "1",
+      "destination": "L'Arbresle",
+      "stop": "Mairie"
+    },
+    {
+      "line": "218",
+      "route_id": "5003",
+      "aimed": "08:07",
+      "dir": "0",
+      "destination": "Villefranche-sur-Saône",
+      "stop": "Mairie"
+    },
+    {
+      "line": "218",
+      "route_id": "5003",
+      "aimed": "08:08",
+      "dir": "0",
+      "destination": "Villefranche-sur-Saône",
+      "stop": "Le Servy"
+    },
+    {
+      "line": "218",
+      "route_id": "5003",
+      "aimed": "08:14",
+      "dir": "0",
+      "destination": "Villefranche-sur-Saône",
+      "stop": "ZI de Montépy"
+    },
+    {
+      "line": "218",
+      "route_id": "5003",
+      "aimed": "08:15",
+      "dir": "0",
+      "destination": "Villefranche-sur-Saône",
+      "stop": "Chemin du Buvet"
+    },
+    {
+      "line": "218",
+      "route_id": "5003",
+      "aimed": "09:40",
+      "dir": "1",
+      "destination": "L'Arbresle",
+      "stop": "Chemin du Buvet"
+    },
+    {
+      "line": "218",
+      "route_id": "5003",
+      "aimed": "09:41",
+      "dir": "1",
+      "destination": "L'Arbresle",
+      "stop": "ZI de Montépy"
+    },
+    {
+      "line": "218",
+      "route_id": "5003",
+      "aimed": "09:49",
+      "dir": "1",
+      "destination": "L'Arbresle",
+      "stop": "Le Servy"
+    },
+    {
+      "line": "218",
+      "route_id": "5003",
+      "aimed": "09:50",
+      "dir": "1",
+      "destination": "L'Arbresle",
+      "stop": "Mairie"
+    },
+    {
+      "line": "218",
+      "route_id": "5003",
+      "aimed": "10:22",
+      "dir": "0",
+      "destination": "Villefranche-sur-Saône",
+      "stop": "Mairie"
+    },
+    {
+      "line": "218",
+      "route_id": "5003",
+      "aimed": "10:23",
+      "dir": "0",
+      "destination": "Villefranche-sur-Saône",
+      "stop": "Le Servy"
+    },
+    {
+      "line": "218",
+      "route_id": "5003",
+      "aimed": "10:29",
+      "dir": "0",
+      "destination": "Villefranche-sur-Saône",
+      "stop": "ZI de Montépy"
+    },
+    {
+      "line": "218",
+      "route_id": "5003",
+      "aimed": "10:30",
+      "dir": "0",
+      "destination": "Villefranche-sur-Saône",
+      "stop": "Chemin du Buvet"
+    },
+    {
+      "line": "218",
+      "route_id": "5003",
+      "aimed": "11:40",
+      "dir": "1",
+      "destination": "L'Arbresle",
+      "stop": "Chemin du Buvet"
+    },
+    {
+      "line": "218",
+      "route_id": "5003",
+      "aimed": "11:41",
+      "dir": "1",
+      "destination": "L'Arbresle",
+      "stop": "ZI de Montépy"
+    },
+    {
+      "line": "218",
+      "route_id": "5003",
+      "aimed": "11:49",
+      "dir": "1",
+      "destination": "L'Arbresle",
+      "stop": "Le Servy"
+    },
+    {
+      "line": "218",
+      "route_id": "5003",
+      "aimed": "11:50",
+      "dir": "1",
+      "destination": "L'Arbresle",
+      "stop": "Mairie"
+    },
+    {
+      "line": "218",
+      "route_id": "5003",
+      "aimed": "12:22",
+      "dir": "0",
+      "destination": "Villefranche-sur-Saône",
+      "stop": "Mairie"
+    },
+    {
+      "line": "218",
+      "route_id": "5003",
+      "aimed": "12:23",
+      "dir": "0",
+      "destination": "Villefranche-sur-Saône",
+      "stop": "Le Servy"
+    },
+    {
+      "line": "218",
+      "route_id": "5003",
+      "aimed": "12:29",
+      "dir": "0",
+      "destination": "Villefranche-sur-Saône",
+      "stop": "ZI de Montépy"
+    },
+    {
+      "line": "218",
+      "route_id": "5003",
+      "aimed": "12:30",
+      "dir": "0",
+      "destination": "Villefranche-sur-Saône",
+      "stop": "Chemin du Buvet"
+    },
+    {
+      "line": "218",
+      "route_id": "5003",
+      "aimed": "14:40",
+      "dir": "1",
+      "destination": "L'Arbresle",
+      "stop": "Chemin du Buvet"
+    },
+    {
+      "line": "218",
+      "route_id": "5003",
+      "aimed": "14:41",
+      "dir": "1",
+      "destination": "L'Arbresle",
+      "stop": "ZI de Montépy"
+    },
+    {
+      "line": "218",
+      "route_id": "5003",
+      "aimed": "14:49",
+      "dir": "1",
+      "destination": "L'Arbresle",
+      "stop": "Le Servy"
+    },
+    {
+      "line": "218",
+      "route_id": "5003",
+      "aimed": "14:50",
+      "dir": "1",
+      "destination": "L'Arbresle",
+      "stop": "Mairie"
+    },
+    {
+      "line": "218",
+      "route_id": "5003",
+      "aimed": "15:22",
+      "dir": "0",
+      "destination": "Villefranche-sur-Saône",
+      "stop": "Mairie"
+    },
+    {
+      "line": "218",
+      "route_id": "5003",
+      "aimed": "15:23",
+      "dir": "0",
+      "destination": "Villefranche-sur-Saône",
+      "stop": "Le Servy"
+    },
+    {
+      "line": "218",
+      "route_id": "5003",
+      "aimed": "15:29",
+      "dir": "0",
+      "destination": "Villefranche-sur-Saône",
+      "stop": "ZI de Montépy"
+    },
+    {
+      "line": "218",
+      "route_id": "5003",
+      "aimed": "15:30",
+      "dir": "0",
+      "destination": "Villefranche-sur-Saône",
+      "stop": "Chemin du Buvet"
+    },
+    {
+      "line": "218",
+      "route_id": "5003",
+      "aimed": "16:43",
+      "dir": "1",
+      "destination": "L'Arbresle",
+      "stop": "Chemin du Buvet"
+    },
+    {
+      "line": "218",
+      "route_id": "5003",
+      "aimed": "16:44",
+      "dir": "1",
+      "destination": "L'Arbresle",
+      "stop": "ZI de Montépy"
+    },
+    {
+      "line": "218",
+      "route_id": "5003",
+      "aimed": "16:52",
+      "dir": "1",
+      "destination": "L'Arbresle",
+      "stop": "Le Servy"
+    },
+    {
+      "line": "218",
+      "route_id": "5003",
+      "aimed": "16:53",
+      "dir": "1",
+      "destination": "L'Arbresle",
+      "stop": "Mairie"
+    },
+    {
+      "line": "218",
+      "route_id": "5003",
+      "aimed": "17:22",
+      "dir": "0",
+      "destination": "Villefranche-sur-Saône",
+      "stop": "Mairie"
+    },
+    {
+      "line": "218",
+      "route_id": "5003",
+      "aimed": "17:23",
+      "dir": "0",
+      "destination": "Villefranche-sur-Saône",
+      "stop": "Le Servy"
+    },
+    {
+      "line": "218",
+      "route_id": "5003",
+      "aimed": "17:29",
+      "dir": "0",
+      "destination": "Villefranche-sur-Saône",
+      "stop": "ZI de Montépy"
+    },
+    {
+      "line": "218",
+      "route_id": "5003",
+      "aimed": "17:30",
+      "dir": "0",
+      "destination": "Villefranche-sur-Saône",
+      "stop": "Chemin du Buvet"
+    },
+    {
+      "line": "218",
+      "route_id": "5003",
+      "aimed": "17:40",
+      "dir": "1",
+      "destination": "L'Arbresle",
+      "stop": "Chemin du Buvet"
+    },
+    {
+      "line": "218",
+      "route_id": "5003",
+      "aimed": "17:41",
+      "dir": "1",
+      "destination": "L'Arbresle",
+      "stop": "ZI de Montépy"
+    },
+    {
+      "line": "218",
+      "route_id": "5003",
+      "aimed": "17:49",
+      "dir": "1",
+      "destination": "L'Arbresle",
+      "stop": "Le Servy"
+    },
+    {
+      "line": "218",
+      "route_id": "5003",
+      "aimed": "17:50",
+      "dir": "1",
+      "destination": "L'Arbresle",
+      "stop": "Mairie"
+    },
+    {
+      "line": "218",
+      "route_id": "5003",
+      "aimed": "18:13",
+      "dir": "1",
+      "destination": "L'Arbresle",
+      "stop": "Chemin du Buvet"
+    },
+    {
+      "line": "218",
+      "route_id": "5003",
+      "aimed": "18:14",
+      "dir": "1",
+      "destination": "L'Arbresle",
+      "stop": "ZI de Montépy"
+    },
+    {
+      "line": "218",
+      "route_id": "5003",
+      "aimed": "18:22",
+      "dir": "1",
+      "destination": "L'Arbresle",
+      "stop": "Le Servy"
+    },
+    {
+      "line": "218",
+      "route_id": "5003",
+      "aimed": "18:22",
+      "dir": "0",
+      "destination": "Villefranche-sur-Saône",
+      "stop": "Mairie"
+    },
+    {
+      "line": "218",
+      "route_id": "5003",
+      "aimed": "18:23",
+      "dir": "1",
+      "destination": "L'Arbresle",
+      "stop": "Mairie"
+    },
+    {
+      "line": "218",
+      "route_id": "5003",
+      "aimed": "18:23",
+      "dir": "0",
+      "destination": "Villefranche-sur-Saône",
+      "stop": "Le Servy"
+    },
+    {
+      "line": "218",
+      "route_id": "5003",
+      "aimed": "18:29",
+      "dir": "0",
+      "destination": "Villefranche-sur-Saône",
+      "stop": "ZI de Montépy"
+    },
+    {
+      "line": "218",
+      "route_id": "5003",
+      "aimed": "18:30",
+      "dir": "0",
+      "destination": "Villefranche-sur-Saône",
+      "stop": "Chemin du Buvet"
+    },
+    {
+      "line": "218",
+      "route_id": "5003",
+      "aimed": "19:07",
+      "dir": "0",
+      "destination": "Villefranche-sur-Saône",
+      "stop": "Mairie"
+    },
+    {
+      "line": "218",
+      "route_id": "5003",
+      "aimed": "19:08",
+      "dir": "0",
+      "destination": "Villefranche-sur-Saône",
+      "stop": "Le Servy"
+    },
+    {
+      "line": "218",
+      "route_id": "5003",
+      "aimed": "19:13",
+      "dir": "1",
+      "destination": "L'Arbresle",
+      "stop": "Chemin du Buvet"
+    },
+    {
+      "line": "218",
+      "route_id": "5003",
+      "aimed": "19:14",
+      "dir": "0",
+      "destination": "Villefranche-sur-Saône",
+      "stop": "ZI de Montépy"
+    },
+    {
+      "line": "218",
+      "route_id": "5003",
+      "aimed": "19:14",
+      "dir": "1",
+      "destination": "L'Arbresle",
+      "stop": "ZI de Montépy"
+    },
+    {
+      "line": "218",
+      "route_id": "5003",
+      "aimed": "19:15",
+      "dir": "0",
+      "destination": "Villefranche-sur-Saône",
+      "stop": "Chemin du Buvet"
+    },
+    {
+      "line": "218",
+      "route_id": "5003",
+      "aimed": "19:22",
+      "dir": "1",
+      "destination": "L'Arbresle",
+      "stop": "Le Servy"
+    },
+    {
+      "line": "218",
+      "route_id": "5003",
+      "aimed": "19:23",
+      "dir": "1",
+      "destination": "L'Arbresle",
+      "stop": "Mairie"
+    },
+    {
+      "line": "218",
+      "route_id": "5003",
+      "aimed": "20:07",
+      "dir": "0",
+      "destination": "Villefranche-sur-Saône",
+      "stop": "Mairie"
+    },
+    {
+      "line": "218",
+      "route_id": "5003",
+      "aimed": "20:08",
+      "dir": "0",
+      "destination": "Villefranche-sur-Saône",
+      "stop": "Le Servy"
+    },
+    {
+      "line": "218",
+      "route_id": "5003",
+      "aimed": "20:14",
+      "dir": "0",
+      "destination": "Villefranche-sur-Saône",
+      "stop": "ZI de Montépy"
+    },
+    {
+      "line": "218",
+      "route_id": "5003",
+      "aimed": "20:15",
+      "dir": "0",
+      "destination": "Villefranche-sur-Saône",
+      "stop": "Chemin du Buvet"
+    }
+  ]
+}

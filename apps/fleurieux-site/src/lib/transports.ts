@@ -1,24 +1,21 @@
 import type { TrainDeparture, TrainAlert, TransportsData } from '@/types'
+import { getBusData } from '@/lib/bus'
 
 const GTFS_RT_TRIPS = 'https://proxy.transport.data.gouv.fr/resource/sncf-gtfs-rt-trip-updates'
 const GTFS_RT_ALERTS = 'https://proxy.transport.data.gouv.fr/resource/sncf-gtfs-rt-service-alerts'
 
-const ARBRESLE_ID = '87721431'
+// Gare suivie : Fleurieux-sur-l'Arbresle (halte tram-train ligne 22 uniquement,
+// pas desservie par les TER Lyon–Roanne/Tarare qui ne s'arrêtent qu'à L'Arbresle).
+const FLEURIEUX_ID = '87721563'
+
+// Côté Sain-Bel au-delà de Fleurieux : sert à déterminer le sens de circulation.
+const SAIN_BEL_SIDE = ['87721431', '87721605'] // L'Arbresle, Sain-Bel
 
 const STOP_NAMES: Record<string, string> = {
   '87721159': 'Lyon Saint-Paul',
-  '87721605': 'Sain-Bel',
-  '87726802': 'Roanne',
-  '87721423': 'Lozanne',
-  '87721472': 'Tarare',
+  '87721563': "Fleurieux-sur-l'Arbresle",
   '87721431': "L'Arbresle",
-  '87721266': 'Albigny-Neuville',
-  '87722025': 'Lyon Perrache',
-  '87721308': 'Pontcharra-sur-Turdine',
-  '87721340': 'Anse',
-  '87721381': 'Bully-La Martine',
-  '87721399': 'Chessy-les-Mines',
-  '87721415': 'Alix-Civrieux',
+  '87721605': 'Sain-Bel',
 }
 
 function stopName(stopId: string): string {
@@ -60,11 +57,11 @@ export async function getTransportsData(): Promise<TransportsData> {
     if (!tu) continue
 
     const stops = tu.stopTimeUpdate ?? []
-    const arbIdx = stops.findIndex((s: { stopId?: string | null }) => s.stopId?.includes(ARBRESLE_ID))
-    if (arbIdx === -1) continue
+    const fleuIdx = stops.findIndex((s: { stopId?: string | null }) => s.stopId?.includes(FLEURIEUX_ID))
+    if (fleuIdx === -1) continue
 
-    const arbStop = stops[arbIdx]
-    const dep = arbStop.departure ?? arbStop.arrival
+    const fleuStop = stops[fleuIdx]
+    const dep = fleuStop.departure ?? fleuStop.arrival
     if (!dep) continue
 
     const depTime = longToNumber(dep.time)
@@ -72,13 +69,16 @@ export async function getTransportsData(): Promise<TransportsData> {
 
     const cancelled = tu.trip?.scheduleRelationship === 3 // CANCELED
 
-    // Direction: last stop after L'Arbresle → vers Sain-Bel or Lyon
-    const lastStop = stops[stops.length - 1]
-    const lastStopId: string = lastStop?.stopId ?? ''
-    const destName = stopName(lastStopId)
-    const direction: TrainDeparture['direction'] = lastStopId.includes('87721159') || lastStopId.includes('87722025')
-      ? 'vers_lyon'
-      : 'vers_sain_bel'
+    // Sens : si un arrêt après Fleurieux est côté Sain-Bel (L'Arbresle/Sain-Bel),
+    // le train s'en va vers Sain-Bel ; sinon il remonte vers Lyon.
+    const afterFleurieux = stops.slice(fleuIdx + 1).map((s: { stopId?: string | null }) => s.stopId ?? '')
+    const direction: TrainDeparture['direction'] = afterFleurieux.some(
+      id => SAIN_BEL_SIDE.some(s => id.includes(s))
+    )
+      ? 'vers_sain_bel'
+      : 'vers_lyon'
+
+    const destName = stopName(stops[stops.length - 1]?.stopId ?? '')
 
     departures.push({
       tripId: entity.id,
@@ -102,8 +102,7 @@ export async function getTransportsData(): Promise<TransportsData> {
     const informedEntities: { stopId?: string | null; routeId?: string | null }[] = alert.informedEntity ?? []
     const relevant = informedEntities.some(
       e => Object.keys(STOP_NAMES).some(k => e.stopId?.includes(k))
-        || e.routeId?.includes('2DF95135') // Lyon Saint-Paul ↔ Sain-Bel
-        || e.routeId?.includes('45E281C7') // Lyon ↔ Roanne
+        || e.routeId?.includes('2DF95135') // Lyon Saint-Paul ↔ Sain-Bel (ligne 22)
     )
     if (!relevant) continue
 
@@ -123,5 +122,8 @@ export async function getTransportsData(): Promise<TransportsData> {
     })
   }
 
-  return { departures, alerts, fetchedAt: now }
+  // Bus temps réel (échec isolé : ne casse jamais l'affichage des trains)
+  const { buses, available: busAvailable } = await getBusData().catch(() => ({ buses: [], available: false }))
+
+  return { departures, alerts, buses, busAvailable, fetchedAt: now }
 }

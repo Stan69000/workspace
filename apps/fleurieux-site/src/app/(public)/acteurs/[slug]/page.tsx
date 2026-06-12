@@ -1,9 +1,11 @@
 import { notFound } from 'next/navigation'
+import { headers } from 'next/headers'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import Image from 'next/image'
 import { prisma } from '@/lib/prisma'
 import { getModules } from '@/lib/modules'
+import { requireStaff } from '@/lib/admin-guard'
 import { OuvertMaintenant } from '@/components/public/OuvertMaintenant'
 import { Badge } from '@/components/ui/Badge'
 import { JOURS_FR } from '@/lib/utils'
@@ -11,15 +13,31 @@ import { localBusinessSchema } from '@/lib/schema-org'
 import { CommentVenirClient } from '@/components/public/CommentVenirClient'
 import { IconMapPin, IconPhone, IconMail, IconGlobe, IconInstagram } from '@/components/ui/icons'
 
+const ETAT_MAJ_LABEL: Record<string, string> = {
+  ACTIF: 'Actif',
+  A_VERIFIER: 'À vérifier',
+  MODIFIE: 'Infos modifiées',
+  FERME: 'Fermé définitivement',
+}
+
 interface Props { params: Promise<{ slug: string }> }
 
+// Sélection explicite : on n'expose JAMAIS contributeurId ni noteMaj au public
+// (l'objet est sérialisé dans le payload de la page).
 async function getActeur(slug: string) {
   return prisma.acteur.findUnique({
     where: { slug, statut: 'PUBLIE' },
-    include: {
-      categorie: true,
-      horaires: { orderBy: { jour: 'asc' } },
-      photos: { orderBy: { ordre: 'asc' } },
+    select: {
+      slug: true, nom: true, emoji: true,
+      description: true, descriptionLongue: true,
+      adresse: true, codePostal: true, ville: true,
+      telephone: true, email: true, siteWeb: true, instagram: true,
+      latitude: true, longitude: true,
+      accepteEspeces: true, accepteCB: true, accepteCheque: true, accepteVirement: true,
+      horairesNote: true, etatMaj: true,
+      categorie: { select: { emoji: true, nom: true } },
+      horaires: { orderBy: { jour: 'asc' }, select: { jour: true, ouvert: true, ouverture: true, fermeture: true } },
+      photos: { orderBy: { ordre: 'asc' }, select: { id: true, url: true, alt: true } },
     },
   })
 }
@@ -41,6 +59,12 @@ export default async function ActeurPage({ params }: Props) {
 
   const modules = await getModules()
   const signalementActif = modules['signalement'] !== false
+  const staff = await requireStaff(await headers())
+  // noteMaj est une note interne : on ne la lit que pour le staff.
+  const noteMaj = staff
+    ? (await prisma.acteur.findUnique({ where: { slug }, select: { noteMaj: true } }))?.noteMaj ?? null
+    : null
+  const montrerEtatAdmin = Boolean(staff) && (acteur.etatMaj !== 'ACTIF' || Boolean(noteMaj))
 
   const baseUrl = process.env.NEXTAUTH_URL ?? 'https://fleurieux.info'
   const jsonLd = localBusinessSchema(acteur, `${baseUrl}/acteurs/${acteur.slug}`)
@@ -127,6 +151,18 @@ export default async function ActeurPage({ params }: Props) {
       <script type="application/ld+json" suppressHydrationWarning>{JSON.stringify(jsonLd)}</script>
 
       <div className="space-y-8">
+        {/* Bandeau état de MAJ — visible uniquement par le staff (admin/modérateur) */}
+        {montrerEtatAdmin && (
+          <div className="rounded-lg border border-amber-300 bg-amber-50 p-3 text-sm dark:border-amber-800 dark:bg-amber-950/30">
+            <p className="font-semibold text-amber-900 dark:text-amber-200">
+              <span aria-hidden="true">🛠️ </span>État de mise à jour (admin) : {ETAT_MAJ_LABEL[acteur.etatMaj] ?? acteur.etatMaj}
+            </p>
+            {noteMaj && (
+              <p className="mt-0.5 whitespace-pre-line text-amber-800 dark:text-amber-300">{noteMaj}</p>
+            )}
+          </div>
+        )}
+
         {/* En-tête */}
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div>
@@ -137,7 +173,14 @@ export default async function ActeurPage({ params }: Props) {
               <span aria-hidden="true">{acteur.emoji} </span>{acteur.nom}
             </h1>
           </div>
-          <OuvertMaintenant horaires={acteur.horaires} horairesNote={acteur.horairesNote} />
+          {acteur.etatMaj === 'FERME' ? (
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-red-100 px-3 py-1 text-sm font-medium text-red-800 dark:bg-red-900/30 dark:text-red-400">
+              <span className="h-2 w-2 rounded-full bg-current" aria-hidden="true" />
+              Fermé définitivement
+            </span>
+          ) : (
+            <OuvertMaintenant horaires={acteur.horaires} horairesNote={acteur.horairesNote} />
+          )}
         </div>
 
         {hasMainContent ? (

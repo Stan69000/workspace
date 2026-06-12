@@ -10,7 +10,7 @@ const ADMIN_LINKS = [
   { href: '/admin/annonces', label: 'Annonces' },
   { href: '/admin/signalements', label: 'Signalements' },
   { href: '/admin/dechets', label: 'Déchets' },
-  { href: '/admin/acteurs/import', label: 'Import acteurs' },
+  { href: '/admin/acteurs/import', label: 'Import / Export acteurs' },
   { href: '/admin/parametres', label: 'Paramètres' },
   { href: '/admin/securite', label: 'Sécurité' },
 ]

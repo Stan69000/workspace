@@ -5,6 +5,9 @@ import type { TransportsData, TrainDeparture, TrainAlert, BusDeparture } from '@
 
 const REFRESH_MS = 2 * 60 * 1000
 
+// Lignes disposant d'un pictogramme officiel TCL self-hosté (public/lignes/<n>.svg).
+const PICTO_LINES = new Set(['86', '216', '218'])
+
 function formatTime(ts: number, delaySeconds: number): { scheduled: string; delayed: boolean; delayMin: number } {
   const d = new Date(ts * 1000)
   const scheduled = d.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Paris' })
@@ -78,12 +81,17 @@ function BusRow({ bus }: { bus: BusDeparture }) {
         : 'border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-900'
     }`}>
       <div className="flex items-center gap-3">
-        <span
-          className="inline-flex h-7 min-w-[2.5rem] items-center justify-center rounded px-1.5 text-sm font-bold text-white"
-          style={{ backgroundColor: bus.lineColor }}
-        >
-          {bus.line}
-        </span>
+        {PICTO_LINES.has(bus.line) ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img src={`/lignes/${bus.line}.svg`} alt={`Ligne ${bus.line}`} className="h-7 w-auto shrink-0" />
+        ) : (
+          <span
+            className="inline-flex h-7 min-w-[2.5rem] items-center justify-center rounded px-1.5 text-sm font-bold text-white"
+            style={{ backgroundColor: bus.lineColor }}
+          >
+            {bus.line}
+          </span>
+        )}
         <div>
           <div className="font-medium text-gray-900 dark:text-gray-100">{bus.destination}</div>
           <div className="text-xs text-gray-500 dark:text-gray-400">Arrêt {bus.stop}</div>

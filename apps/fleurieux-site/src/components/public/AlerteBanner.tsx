@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { prisma } from '@/lib/prisma'
+import { getModules } from '@/lib/modules'
 
 const NIVEAU_STYLE: Record<string, string> = {
   INFO:      'border-blue-300 bg-blue-50 text-blue-900 dark:border-blue-900 dark:bg-blue-950/40 dark:text-blue-200',
@@ -10,6 +11,10 @@ const NIVEAU_STYLE: Record<string, string> = {
 const NIVEAU_LABEL: Record<string, string> = { INFO: 'Info', IMPORTANT: 'Important', URGENT: 'Urgent' }
 
 export async function AlerteBanner({ limit = 3 }: { limit?: number }) {
+  // Le bandeau renvoie vers /infos-pratiques : si ce module est masqué, on ne l'affiche pas.
+  const modules = await getModules()
+  if (modules['infos-pratiques'] === false) return null
+
   const now = new Date()
   const alertes = await prisma.alerte.findMany({
     where: {

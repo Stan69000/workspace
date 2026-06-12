@@ -141,6 +141,10 @@ model Acteur {
   // Notes sur les horaires
   horairesNote  String?
 
+  // État de mise à jour (pour les MAJ en masse) : ouvert / fermé / changé / à vérifier
+  etatMaj       EtatMaj  @default(ACTIF)
+  noteMaj       String?  // Ce qui a changé ou ce qu'il faut faire
+
   // Relations
   categorie     Categorie     @relation(fields: [categorieId], references: [id])
   contributeur  User?         @relation("ContributeurActeur", fields: [contributeurId], references: [id])
@@ -152,6 +156,7 @@ model Acteur {
 
   @@index([statut])
   @@index([categorieId, statut])
+  @@index([etatMaj])
   @@map("acteurs")
 }
 
@@ -231,6 +236,14 @@ enum Statut {
   EN_ATTENTE
   PUBLIE
   ARCHIVE
+}
+
+// État de mise à jour d'une fiche acteur (suivi des MAJ en masse)
+enum EtatMaj {
+  ACTIF        // Ouvert, infos à jour
+  A_VERIFIER   // À vérifier
+  MODIFIE      // Infos modifiées (cf. noteMaj)
+  FERME        // Fermé définitivement
 }
 
 // ─────────────────────────────────────────────

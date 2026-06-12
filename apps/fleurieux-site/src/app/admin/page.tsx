@@ -46,7 +46,7 @@ export default async function AdminDashboardPage() {
     { label: 'Publier une alerte', href: '/admin/alertes' },
     { label: 'Modérer les annonces', href: '/admin/annonces' },
     { label: 'Traiter les signalements', href: '/admin/signalements' },
-    { label: 'Importer des acteurs (CSV)', href: '/admin/acteurs/import' },
+    { label: 'Import / Export acteurs', href: '/admin/acteurs/import' },
   ]
 
   return (

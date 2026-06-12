@@ -18,7 +18,7 @@ export default async function Page() {
       <div>
         <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">Transports</h1>
         <p className="mt-1 text-gray-500 dark:text-gray-400">
-          Ligne Lyon Saint-Paul — L&apos;Arbresle — Sain-Bel (TER)
+          Gare de Fleurieux-sur-l&apos;Arbresle — tram-train ligne 22 (Lyon Saint-Paul ↔ Sain-Bel)
         </p>
       </div>
       <TransportsPage initial={initial} />

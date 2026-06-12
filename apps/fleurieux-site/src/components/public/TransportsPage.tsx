@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState, useCallback } from 'react'
-import type { TransportsData, TrainDeparture, TrainAlert } from '@/types'
+import type { TransportsData, TrainDeparture, TrainAlert, BusDeparture } from '@/types'
 
 const REFRESH_MS = 2 * 60 * 1000
 
@@ -68,6 +68,49 @@ function DepartureRow({ dep }: { dep: TrainDeparture }) {
   )
 }
 
+function BusRow({ bus }: { bus: BusDeparture }) {
+  const time = new Date(bus.departureTime * 1000).toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Paris' })
+
+  return (
+    <div className={`flex items-center justify-between rounded-lg border px-4 py-3 ${
+      bus.cancelled
+        ? 'border-red-200 bg-red-50 dark:border-red-900 dark:bg-red-950/30'
+        : 'border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-900'
+    }`}>
+      <div className="flex items-center gap-3">
+        <span
+          className="inline-flex h-7 min-w-[2.5rem] items-center justify-center rounded px-1.5 text-sm font-bold text-white"
+          style={{ backgroundColor: bus.lineColor }}
+        >
+          {bus.line}
+        </span>
+        <div>
+          <div className="font-medium text-gray-900 dark:text-gray-100">{bus.destination}</div>
+          <div className="text-xs text-gray-500 dark:text-gray-400">Arrêt {bus.stop}</div>
+        </div>
+      </div>
+
+      <div className="text-right">
+        {bus.cancelled ? (
+          <span className="font-semibold text-red-600 dark:text-red-400">Supprimé</span>
+        ) : (
+          <>
+            <div className="font-semibold text-gray-900 dark:text-gray-100">
+              {time}
+              {bus.delayMin >= 1 && (
+                <span className="ml-1 text-sm font-normal text-orange-600 dark:text-orange-400">
+                  +{bus.delayMin} min
+                </span>
+              )}
+            </div>
+            <div className="text-xs text-gray-500 dark:text-gray-400">{relativeTime(bus.departureTime)}</div>
+          </>
+        )}
+      </div>
+    </div>
+  )
+}
+
 function AlertBanner({ alert }: { alert: TrainAlert }) {
   const [open, setOpen] = useState(false)
 
@@ -124,6 +167,7 @@ export function TransportsPage({ initial }: { initial: TransportsData | null }) 
 
   const toLyon = data?.departures.filter(d => d.direction === 'vers_lyon') ?? []
   const toSainBel = data?.departures.filter(d => d.direction === 'vers_sain_bel') ?? []
+  const buses = data?.buses ?? []
 
   return (
     <div className="space-y-6">
@@ -162,6 +206,25 @@ export function TransportsPage({ initial }: { initial: TransportsData | null }) 
           )}
         </section>
       </div>
+
+      <section>
+        <h2 className="mb-3 flex items-center gap-2 text-lg font-semibold text-gray-900 dark:text-gray-100">
+          <span aria-hidden="true">🚌</span> Bus à Fleurieux
+          <span className="text-sm font-normal text-gray-400 dark:text-gray-500">temps réel</span>
+        </h2>
+        {!data?.busAvailable ? (
+          <p className="text-sm text-gray-500 dark:text-gray-400">Flux bus temporairement indisponible</p>
+        ) : buses.length === 0 ? (
+          <p className="text-sm text-gray-500 dark:text-gray-400">Aucun passage bus dans l&apos;immédiat</p>
+        ) : (
+          <div className="grid gap-2 sm:grid-cols-2">
+            {buses.map((b, i) => <BusRow key={`${b.line}-${b.destination}-${b.departureTime}-${i}`} bus={b} />)}
+          </div>
+        )}
+        <p className="mt-2 text-xs text-gray-400 dark:text-gray-600">
+          Lignes 216 (Tarare ↔ Lyon Gorge-de-Loup) et 218 (L&apos;Arbresle ↔ Villefranche). Lignes scolaires non incluses.
+        </p>
+      </section>
 
       <div className="flex items-center justify-between text-xs text-gray-400 dark:text-gray-600">
         <span>

@@ -5,12 +5,15 @@ import { prisma } from '@/lib/prisma'
 import { auth } from '@/lib/auth'
 import { geocodeAdresse } from '@/lib/geocode'
 import { logger } from '@/lib/logger'
+import { JOURS, parseBool, parseHoraire, parsePhotos } from '@/lib/acteur-csv'
 
 const rowSchema = z.object({
   nom: z.string().min(1).max(200),
   slug: z.string().min(1).max(200).regex(/^[a-z0-9-]+$/),
   categorieSlug: z.string().min(1),
+  emoji: z.string().optional(),
   description: z.string().optional(),
+  descriptionLongue: z.string().optional(),
   adresse: z.string().optional(),
   codePostal: z.string().optional(),
   ville: z.string().optional(),
@@ -18,9 +21,20 @@ const rowSchema = z.object({
   email: z.string().email().optional().or(z.literal('')),
   siteWeb: z.string().url().optional().or(z.literal('')),
   instagram: z.string().url().optional().or(z.literal('')),
-  descriptionLongue: z.string().optional(),
+  accepteEspeces: z.string().optional(),
+  accepteCB: z.string().optional(),
+  accepteCheque: z.string().optional(),
+  accepteVirement: z.string().optional(),
+  horaire_lundi: z.string().optional(),
+  horaire_mardi: z.string().optional(),
+  horaire_mercredi: z.string().optional(),
+  horaire_jeudi: z.string().optional(),
+  horaire_vendredi: z.string().optional(),
+  horaire_samedi: z.string().optional(),
+  horaire_dimanche: z.string().optional(),
   horairesNote: z.string().optional(),
-  statut: z.enum(['PUBLIE', 'BROUILLON']).default('BROUILLON'),
+  photos: z.string().optional(),
+  statut: z.enum(['PUBLIE', 'BROUILLON', 'EN_ATTENTE', 'ARCHIVE']).optional(),
   etatMaj: z.enum(['ACTIF', 'A_VERIFIER', 'MODIFIE', 'FERME']).optional(),
   noteMaj: z.string().optional(),
 })
@@ -68,48 +82,87 @@ export async function POST(req: NextRequest) {
           continue
         }
 
+        // Règle générale : une colonne absente = champ inchangé (import partiel sûr).
+        const data: Record<string, unknown> = { nom: row.nom, categorieId: categorie.id }
+        const setText = (key: string, v: string | undefined) => { if (v !== undefined) data[key] = v.trim() || null }
+        setText('emoji', row.emoji)
+        setText('description', row.description)
+        setText('descriptionLongue', row.descriptionLongue)
+        setText('adresse', row.adresse)
+        setText('codePostal', row.codePostal)
+        setText('ville', row.ville)
+        setText('telephone', row.telephone)
+        setText('email', row.email)
+        setText('siteWeb', row.siteWeb)
+        setText('instagram', row.instagram)
+        setText('horairesNote', row.horairesNote)
+        setText('noteMaj', row.noteMaj)
+        if (row.etatMaj !== undefined) data.etatMaj = row.etatMaj as EtatMaj
+
+        const espece = parseBool(row.accepteEspeces); if (espece !== undefined) data.accepteEspeces = espece
+        const cb = parseBool(row.accepteCB); if (cb !== undefined) data.accepteCB = cb
+        const cheque = parseBool(row.accepteCheque); if (cheque !== undefined) data.accepteCheque = cheque
+        const virement = parseBool(row.accepteVirement); if (virement !== undefined) data.accepteVirement = virement
+
         // H1 : un CONTRIBUTEUR ne publie jamais directement (passe par la modération)
-        const statut: Statut = isAdmin ? (row.statut as Statut) : Statut.EN_ATTENTE
+        if (row.statut !== undefined) data.statut = isAdmin ? (row.statut as Statut) : Statut.EN_ATTENTE
 
-        const data: Record<string, unknown> = {
-          nom: row.nom,
-          categorieId: categorie.id,
-          description: row.description || null,
-          descriptionLongue: row.descriptionLongue || null,
-          adresse: row.adresse || null,
-          codePostal: row.codePostal || null,
-          ville: row.ville || null,
-          telephone: row.telephone || null,
-          email: row.email || null,
-          siteWeb: row.siteWeb || null,
-          instagram: row.instagram || null,
-          horairesNote: row.horairesNote || null,
-          noteMaj: row.noteMaj || null,
-          statut,
-        }
-        // etatMaj seulement si fourni (ne pas écraser/forcer le défaut à l'update)
-        if (row.etatMaj) data.etatMaj = row.etatMaj as EtatMaj
-
-        // Géocodage uniquement si l'adresse a changé, ou nouvelle fiche, ou coords manquantes
-        const adresseChange = (row.adresse || null) !== (existing?.adresse ?? null)
-        if (row.adresse && (!existing || adresseChange || existing.latitude == null)) {
-          const coords = await geocodeAdresse(row.adresse, row.codePostal, row.ville)
-          if (coords) {
-            data.latitude = coords.lat
-            data.longitude = coords.lon
+        // Géocodage seulement si l'adresse est fournie et a changé (ou coords manquantes)
+        if (row.adresse !== undefined) {
+          const nouvelle = row.adresse.trim() || null
+          if (!nouvelle) {
+            data.latitude = null
+            data.longitude = null
+          } else if (!existing || nouvelle !== (existing.adresse ?? null) || existing.latitude == null) {
+            const coords = await geocodeAdresse(row.adresse, row.codePostal, row.ville)
+            if (coords) { data.latitude = coords.lat; data.longitude = coords.lon }
           }
-        } else if (!row.adresse) {
-          data.latitude = null
-          data.longitude = null
         }
 
-        if (existing) {
-          await prisma.acteur.update({ where: { slug: row.slug }, data })
-          results.push({ slug: row.slug, action: 'updated' })
-        } else {
-          await prisma.acteur.create({ data: { ...data, slug: row.slug, contributeurId: session.user.id } })
-          results.push({ slug: row.slug, action: 'created' })
+        // Horaires (remplacés si au moins une colonne horaire_* est présente)
+        const horaireVals: Record<string, string | undefined> = {
+          LUNDI: row.horaire_lundi, MARDI: row.horaire_mardi, MERCREDI: row.horaire_mercredi,
+          JEUDI: row.horaire_jeudi, VENDREDI: row.horaire_vendredi, SAMEDI: row.horaire_samedi,
+          DIMANCHE: row.horaire_dimanche,
         }
+        const horairesProvided = JOURS.some(j => horaireVals[j] !== undefined)
+        const photosList = parsePhotos(row.photos) // null = colonne absente
+
+        await prisma.$transaction(async (tx) => {
+          let acteurId: string
+          if (existing) {
+            await tx.acteur.update({ where: { slug: row.slug }, data })
+            acteurId = existing.id
+          } else {
+            const created = await tx.acteur.create({
+              data: {
+                ...data,
+                slug: row.slug,
+                contributeurId: session.user.id,
+                statut: (data.statut as Statut | undefined) ?? (isAdmin ? undefined : Statut.EN_ATTENTE),
+              },
+            })
+            acteurId = created.id
+          }
+
+          if (horairesProvided) {
+            await tx.horaire.deleteMany({ where: { acteurId } })
+            const horaireRows = JOURS.flatMap(j => {
+              const s = parseHoraire(horaireVals[j])
+              return s ? [{ acteurId, jour: j, ouvert: s.ouvert, ouverture: s.ouverture, fermeture: s.fermeture }] : []
+            })
+            if (horaireRows.length) await tx.horaire.createMany({ data: horaireRows })
+          }
+
+          if (photosList !== null) {
+            await tx.photo.deleteMany({ where: { acteurId } })
+            if (photosList.length) {
+              await tx.photo.createMany({ data: photosList.map((url, i) => ({ acteurId, url, alt: row.nom, ordre: i })) })
+            }
+          }
+        })
+
+        results.push({ slug: row.slug, action: existing ? 'updated' : 'created' })
       } catch (rowErr) {
         results.push({ slug: row.slug, action: 'error', error: String(rowErr) })
       }

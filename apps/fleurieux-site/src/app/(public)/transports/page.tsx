@@ -16,6 +16,13 @@ const SNCF_CONNECT = 'https://www.sncf-connect.com/ter-auvergne-rhone-alpes'
 const TCL = 'https://www.tcl.fr'
 const MAIRIE_TRAVAUX = 'https://www.mairie-larbresle.fr/actualites/2026/06/02/info-travaux-regeneration-de-la-voie-ferree-sur-la-ligne-du-tram-train.html'
 
+// Itinéraires vélo (Google Maps, mode bicyclette) depuis Fleurieux.
+const veloDir = (dest: string) =>
+  `https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent("Fleurieux-sur-l'Arbresle")}&destination=${encodeURIComponent(dest)}&travelmode=bicycling`
+const VELO_GORGE = veloDir('Lyon Gorge de Loup')
+const VELO_VAISE = veloDir('Gare de Lyon-Vaise')
+const VELO_PARTDIEU = veloDir('Gare de Lyon Part-Dieu')
+
 const worksDetail =
   "Régénération des voies entre Tassin et Charbonnières. Le tram-train reste assuré entre Sain-Bel / L'Arbresle et Charbonnières (Fleurieux desservi), puis bus de substitution jusqu'à Lyon Saint-Paul aux horaires habituels (2 cars/h en pointe, 1/h en heures creuses)."
 
@@ -83,6 +90,28 @@ export default async function Page() {
           <li className="flex gap-2">
             <span aria-hidden="true">ℹ️</span>
             <span>Le <strong>bus 86</strong> (Gorge-de-Loup ↔ La Tour-de-Salvagny) ne dessert pas Fleurieux ; utile seulement en correspondance depuis Tassin, Charbonnières ou Demi-Lune.</span>
+          </li>
+        </ul>
+      </section>
+
+      <section className="rounded-lg border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-900">
+        <h2 className="mb-2 text-lg font-semibold text-gray-900 dark:text-gray-100">À vélo vers Lyon</h2>
+        <p className="mb-3 text-sm text-gray-600 dark:text-gray-400">
+          Itinéraires cyclables depuis Fleurieux (comptez ≈ 20–30 km selon la destination et l&apos;itinéraire). On peut aussi
+          combiner vélo + tram-train (vélos admis selon les conditions TER, hors heures de pointe).
+        </p>
+        <ul className="space-y-2 text-sm text-gray-700 dark:text-gray-300">
+          <li className="flex gap-2">
+            <span aria-hidden="true">🚲</span>
+            <span><ExtLink href={VELO_GORGE}>Vers Lyon Gorge-de-Loup</ExtLink> — correspondance métro D</span>
+          </li>
+          <li className="flex gap-2">
+            <span aria-hidden="true">🚲</span>
+            <span><ExtLink href={VELO_VAISE}>Vers Lyon Vaise</ExtLink> — gare &amp; métro D</span>
+          </li>
+          <li className="flex gap-2">
+            <span aria-hidden="true">🚲</span>
+            <span><ExtLink href={VELO_PARTDIEU}>Vers Lyon Part-Dieu</ExtLink> — gare TGV &amp; métro B</span>
           </li>
         </ul>
       </section>

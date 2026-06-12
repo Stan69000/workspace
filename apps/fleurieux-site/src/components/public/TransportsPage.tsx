@@ -168,6 +168,8 @@ export function TransportsPage({ initial }: { initial: TransportsData | null }) 
   const toLyon = data?.departures.filter(d => d.direction === 'vers_lyon') ?? []
   const toSainBel = data?.departures.filter(d => d.direction === 'vers_sain_bel') ?? []
   const buses = data?.buses ?? []
+  const fleurieuxBuses = buses.filter(b => !b.corr)
+  const corrBuses = buses.filter(b => b.corr)
 
   return (
     <div className="space-y-6">
@@ -214,16 +216,34 @@ export function TransportsPage({ initial }: { initial: TransportsData | null }) 
         </h2>
         {!data?.busAvailable ? (
           <p className="text-sm text-gray-500 dark:text-gray-400">Flux bus temporairement indisponible</p>
-        ) : buses.length === 0 ? (
-          <p className="text-sm text-gray-500 dark:text-gray-400">Aucun passage bus dans l&apos;immédiat</p>
         ) : (
-          <div className="grid gap-2 sm:grid-cols-2">
-            {buses.map((b, i) => <BusRow key={`${b.line}-${b.destination}-${b.departureTime}-${i}`} bus={b} />)}
-          </div>
+          <>
+            {fleurieuxBuses.length === 0 ? (
+              <p className="text-sm text-gray-500 dark:text-gray-400">Aucun passage bus dans l&apos;immédiat</p>
+            ) : (
+              <div className="grid gap-2 sm:grid-cols-2">
+                {fleurieuxBuses.map((b, i) => <BusRow key={`${b.line}-${b.destination}-${b.departureTime}-${i}`} bus={b} />)}
+              </div>
+            )}
+            <p className="mt-2 text-xs text-gray-400 dark:text-gray-600">
+              Lignes 216 (Tarare ↔ Lyon Gorge-de-Loup) et 218 (L&apos;Arbresle ↔ Villefranche). Lignes scolaires non incluses.
+            </p>
+
+            {corrBuses.length > 0 && (
+              <div className="mt-5">
+                <h3 className="mb-2 text-sm font-semibold text-gray-900 dark:text-gray-100">
+                  Correspondance vers Lyon — bus 86 à Tassin
+                </h3>
+                <div className="grid gap-2 sm:grid-cols-2">
+                  {corrBuses.slice(0, 6).map((b, i) => <BusRow key={`corr-${b.departureTime}-${i}`} bus={b} />)}
+                </div>
+                <p className="mt-2 text-xs text-gray-400 dark:text-gray-600">
+                  Tram-train ligne 22 jusqu&apos;à Tassin, puis bus 86 → Lyon Gorge-de-Loup (métro D). À noter : le tram-train dessert aussi Gorge-de-Loup directement.
+                </p>
+              </div>
+            )}
+          </>
         )}
-        <p className="mt-2 text-xs text-gray-400 dark:text-gray-600">
-          Lignes 216 (Tarare ↔ Lyon Gorge-de-Loup) et 218 (L&apos;Arbresle ↔ Villefranche). Lignes scolaires non incluses.
-        </p>
       </section>
 
       <div className="flex items-center justify-between text-xs text-gray-400 dark:text-gray-600">

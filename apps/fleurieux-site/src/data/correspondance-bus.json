@@ -1,0 +1,1369 @@
+{
+  "meta": {
+    "generatedFrom": "GTFS TCL/SYTRAL",
+    "feedStart": "20260610",
+    "feedEnd": "20260817",
+    "count": 151
+  },
+  "entries": [
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "06:04",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "06:13",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "06:14",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "06:15",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "06:16",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "06:39",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "06:42",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "06:46",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "06:57",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "07:06",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "07:12",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "07:13",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "07:15",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "07:21",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "07:33",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "07:37",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "07:39",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "07:43",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "08:00",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "08:03",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "08:04",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "08:12",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "08:13",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "08:16",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "08:22",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "08:23",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "08:28",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "08:40",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "08:46",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "08:53",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "08:59",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "09:06",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "09:14",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "09:15",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "09:16",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "09:18",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "09:30",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "09:38",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "09:40",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "09:46",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "09:54",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "10:10",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "10:11",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "10:13",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "10:14",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "10:16",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "10:17",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "10:37",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "10:43",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "10:45",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "10:46",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "11:09",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "11:13",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "11:15",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "11:16",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "11:43",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "11:45",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "11:47",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "12:14",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "12:15",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "12:17",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "12:44",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "12:46",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "12:48",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "12:54",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "13:13",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "13:15",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "13:17",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "13:18",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "13:25",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "13:43",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "13:44",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "13:46",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "13:49",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "13:55",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "14:14",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "14:15",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "14:16",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "14:17",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "14:26",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "14:45",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "14:47",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "14:53",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "14:57",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "15:13",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "15:15",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "15:17",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "15:25",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "15:30",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "15:44",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "15:46",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "15:48",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "15:59",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "16:02",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "16:14",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "16:15",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "16:18",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "16:29",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "16:36",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "16:45",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "16:46",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "16:48",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "16:56",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "17:04",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "17:12",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "17:16",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "17:17",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "17:18",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "17:23",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "17:38",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "17:45",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "17:48",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "17:50",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "17:53",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "18:00",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "18:06",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "18:07",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "18:15",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "18:17",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "18:22",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "18:23",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "18:31",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "18:36",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "18:41",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "18:45",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "18:47",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "18:50",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "18:54",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "19:02",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "19:04",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "19:15",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "19:17",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "19:19",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "19:20",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "19:22",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "19:43",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "19:45",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "19:46",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "19:47",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "20:13",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "20:14",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "20:16",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "20:17",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "20:42",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "20:43",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "20:44",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "20:45",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "20:46",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "21:10",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "21:13",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    },
+    {
+      "line": "86",
+      "route_id": "86",
+      "aimed": "21:15",
+      "dir": "1",
+      "destination": "Lyon Gorge-de-Loup",
+      "stop": "Tassin Combattants",
+      "corr": true
+    }
+  ]
+}

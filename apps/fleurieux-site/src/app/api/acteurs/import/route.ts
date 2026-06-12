@@ -18,9 +18,11 @@ const rowSchema = z.object({
   codePostal: z.string().optional(),
   ville: z.string().optional(),
   telephone: z.string().optional(),
-  email: z.string().email().optional().or(z.literal('')),
-  siteWeb: z.string().url().optional().or(z.literal('')),
-  instagram: z.string().url().optional().or(z.literal('')),
+  // Champs libres : on ne casse pas tout le batch sur une URL/e-mail non stricts
+  // (les valeurs viennent de la base, gérées par l'admin).
+  email: z.string().optional(),
+  siteWeb: z.string().optional(),
+  instagram: z.string().optional(),
   accepteEspeces: z.string().optional(),
   accepteCB: z.string().optional(),
   accepteCheque: z.string().optional(),
@@ -39,8 +41,10 @@ const rowSchema = z.object({
   noteMaj: z.string().optional(),
 })
 
+// Validation faite par ligne (dans la boucle) : une ligne invalide est signalée
+// sans faire échouer tout le lot.
 const bodySchema = z.object({
-  rows: z.array(rowSchema).min(1).max(1000),
+  rows: z.array(z.record(z.string(), z.unknown())).min(1).max(1000),
 })
 
 export async function POST(req: NextRequest) {
@@ -63,8 +67,20 @@ export async function POST(req: NextRequest) {
 
     const results: { slug: string; action: 'created' | 'updated' | 'error'; error?: string }[] = []
 
-    for (const row of parsed.data.rows) {
+    for (const raw of parsed.data.rows) {
       try {
+        const parsedRow = rowSchema.safeParse(raw)
+        if (!parsedRow.success) {
+          const slug = typeof raw.slug === 'string' ? raw.slug : '?'
+          results.push({
+            slug,
+            action: 'error',
+            error: 'Ligne invalide : ' + parsedRow.error.issues.map(i => `${i.path.join('.')} ${i.message}`).join('; ').slice(0, 200),
+          })
+          continue
+        }
+        const row = parsedRow.data
+
         const categorie = await prisma.categorie.findUnique({ where: { slug: row.categorieSlug } })
         if (!categorie) {
           results.push({ slug: row.slug, action: 'error', error: `Catégorie "${row.categorieSlug}" introuvable` })

@@ -34,8 +34,8 @@ const DEST_OVERRIDE = {
 // Cibles à générer : arrêts retenus + lignes + direction éventuellement filtrée.
 const TARGETS = [
   { out: 'fleurieux-bus.json', stop: /fleurieux/i, routes: ['2080', '5003'], corr: false, dir: null },
-  // Ligne 86 vers Gorge-de-Loup (dir 1) à Tassin Combattants, en correspondance.
-  { out: 'correspondance-bus.json', stop: /^Tassin Combattants$/i, routes: ['86'], corr: true, dir: '1' },
+  // Ligne 86 vers Gorge-de-Loup (dir 1) au terminus La Tour-de-Salvagny (Chambettes).
+  { out: 'correspondance-bus.json', stop: /^Tour Salvagny Chambettes$/i, routes: ['86'], corr: true, dir: '1' },
 ]
 
 function titleCase(s) {

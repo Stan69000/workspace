@@ -232,13 +232,13 @@ export function TransportsPage({ initial }: { initial: TransportsData | null }) 
             {corrBuses.length > 0 && (
               <div className="mt-5">
                 <h3 className="mb-2 text-sm font-semibold text-gray-900 dark:text-gray-100">
-                  Correspondance vers Lyon — bus 86 à Tassin
+                  Correspondance vers Lyon — bus 86 à La Tour-de-Salvagny (Chambettes)
                 </h3>
                 <div className="grid gap-2 sm:grid-cols-2">
                   {corrBuses.slice(0, 6).map((b, i) => <BusRow key={`corr-${b.departureTime}-${i}`} bus={b} />)}
                 </div>
                 <p className="mt-2 text-xs text-gray-400 dark:text-gray-600">
-                  Tram-train ligne 22 jusqu&apos;à Tassin, puis bus 86 → Lyon Gorge-de-Loup (métro D). À noter : le tram-train dessert aussi Gorge-de-Loup directement.
+                  Au terminus de La Tour-de-Salvagny (Chambettes), le bus 86 part vers Lyon Gorge-de-Loup (métro D). À noter : le tram-train dessert aussi Gorge-de-Loup directement.
                 </p>
               </div>
             )}

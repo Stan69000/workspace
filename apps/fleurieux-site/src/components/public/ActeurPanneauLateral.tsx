@@ -27,10 +27,10 @@ export function ActeurPanneauLateral({ acteur, onFermer }: Props) {
 
   return (
     <>
-      {/* Overlay mobile */}
+      {/* Fond semi-transparent — seulement quand le panneau est un modal (mobile/tablette) */}
       {acteur && (
         <div
-          className="fixed inset-0 z-[1000] bg-black/30 md:hidden"
+          className="fixed inset-0 z-[1000] bg-black/30 lg:hidden"
           onClick={onFermer}
           aria-hidden="true"
         />
@@ -42,11 +42,16 @@ export function ActeurPanneauLateral({ acteur, onFermer }: Props) {
         aria-modal="true"
         aria-labelledby="panneau-titre"
         className={cn(
+          // Mobile / tablette : modal plein écran qui glisse depuis la droite
           'fixed top-0 right-0 z-[1001] h-full overflow-y-auto',
           'w-full sm:w-96',
           'bg-white dark:bg-gray-900 shadow-2xl',
           'transition-transform duration-300 ease-in-out',
           acteur ? 'translate-x-0' : 'translate-x-full',
+          // Desktop : colonne en flux à côté de la carte (ne recouvre plus header/filtres)
+          'lg:static lg:z-auto lg:h-[calc(100vh_-_16rem)] lg:w-96 lg:flex-shrink-0',
+          'lg:translate-x-0 lg:rounded-xl lg:border lg:border-gray-200 dark:lg:border-gray-700 lg:shadow-none',
+          acteur ? 'lg:block' : 'lg:hidden',
         )}
       >
         {acteur && (

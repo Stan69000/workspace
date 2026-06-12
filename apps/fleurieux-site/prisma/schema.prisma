@@ -242,6 +242,7 @@ enum Statut {
 enum EtatMaj {
   ACTIF        // Ouvert, infos à jour
   A_VERIFIER   // À vérifier
+  VERIFIE      // Vérifié (source dans noteMaj)
   MODIFIE      // Infos modifiées (cf. noteMaj)
   FERME        // Fermé définitivement
 }

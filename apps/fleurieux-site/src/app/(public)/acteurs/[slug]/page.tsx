@@ -16,6 +16,7 @@ import { IconMapPin, IconPhone, IconMail, IconGlobe, IconInstagram } from '@/com
 const ETAT_MAJ_LABEL: Record<string, string> = {
   ACTIF: 'Actif',
   A_VERIFIER: 'À vérifier',
+  VERIFIE: 'Vérifié',
   MODIFIE: 'Infos modifiées',
   FERME: 'Fermé définitivement',
 }

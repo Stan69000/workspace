@@ -1,11 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { z } from 'zod'
-import { Statut, EtatMaj } from '@prisma/client'
+import { Statut } from '@prisma/client'
 import { prisma } from '@/lib/prisma'
 import { auth } from '@/lib/auth'
 import { geocodeAdresse } from '@/lib/geocode'
 import { logger } from '@/lib/logger'
-import { JOURS, parseBool, parseHoraire, parsePhotos } from '@/lib/acteur-csv'
+import { JOURS, parseBool, parseHoraire, parsePhotos, parseEtatMaj } from '@/lib/acteur-csv'
 
 const rowSchema = z.object({
   nom: z.string().min(1).max(200),
@@ -37,7 +37,7 @@ const rowSchema = z.object({
   horairesNote: z.string().optional(),
   photos: z.string().optional(),
   statut: z.enum(['PUBLIE', 'BROUILLON', 'EN_ATTENTE', 'ARCHIVE']).optional(),
-  etatMaj: z.enum(['ACTIF', 'A_VERIFIER', 'MODIFIE', 'FERME']).optional(),
+  etatMaj: z.string().optional(), // valeur normalisée via parseEtatMaj (accepte alias)
   noteMaj: z.string().optional(),
 })
 
@@ -113,7 +113,8 @@ export async function POST(req: NextRequest) {
         setText('instagram', row.instagram)
         setText('horairesNote', row.horairesNote)
         setText('noteMaj', row.noteMaj)
-        if (row.etatMaj !== undefined) data.etatMaj = row.etatMaj as EtatMaj
+        const etat = parseEtatMaj(row.etatMaj)
+        if (etat) data.etatMaj = etat
 
         const espece = parseBool(row.accepteEspeces); if (espece !== undefined) data.accepteEspeces = espece
         const cb = parseBool(row.accepteCB); if (cb !== undefined) data.accepteCB = cb

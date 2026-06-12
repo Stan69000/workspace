@@ -1,5 +1,24 @@
 // Format CSV/JSON partagé entre l'export et l'import des acteurs (round-trip).
-import type { Jour } from '@prisma/client'
+import type { Jour, EtatMaj } from '@prisma/client'
+
+const ETAT_MAJ_VALUES = ['ACTIF', 'A_VERIFIER', 'VERIFIE', 'MODIFIE', 'FERME']
+const ETAT_MAJ_ALIASES: Record<string, string> = {
+  VERIFIE_WEB: 'VERIFIE',
+  VERIF: 'VERIFIE',
+  OUVERT: 'ACTIF',
+  AVERIFIER: 'A_VERIFIER',
+  'A VERIFIER': 'A_VERIFIER',
+}
+
+// Normalise un libellé d'état (accents, casse, alias) vers une valeur de l'enum.
+// undefined = absent ou non reconnu (on ne modifie alors pas l'état).
+export function parseEtatMaj(v: string | undefined): EtatMaj | undefined {
+  if (v == null) return undefined
+  const s = v.trim().toUpperCase().normalize('NFD').replace(/[̀-ͯ]/g, '')
+  if (s === '') return undefined
+  if (ETAT_MAJ_VALUES.includes(s)) return s as EtatMaj
+  return ETAT_MAJ_ALIASES[s] as EtatMaj | undefined
+}
 
 export const JOURS: Jour[] = ['LUNDI', 'MARDI', 'MERCREDI', 'JEUDI', 'VENDREDI', 'SAMEDI', 'DIMANCHE']
 

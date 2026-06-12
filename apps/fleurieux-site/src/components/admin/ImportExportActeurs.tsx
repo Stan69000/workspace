@@ -154,7 +154,7 @@ export function ImportExportActeurs({ categories }: Props) {
             un CSV réduit (ex. <code>slug</code> + <code>etatMaj</code> + <code>noteMaj</code>) sans rien écraser.
           </p>
           <ul className="mt-1 space-y-0.5 text-xs text-gray-400 dark:text-gray-600">
-            <li><code>etatMaj</code> : ACTIF · A_VERIFIER · MODIFIE · FERME — <code>noteMaj</code> : ce qui a changé / à faire.</li>
+            <li><code>etatMaj</code> : ACTIF · A_VERIFIER · VERIFIE · MODIFIE · FERME (alias accepté : VERIFIE_WEB) — <code>noteMaj</code> : ce qui a changé / à faire.</li>
             <li>Paiements (<code>accepteEspeces</code>…) : <code>oui</code> / <code>non</code>.</li>
             <li>Horaires (<code>horaire_lundi</code>…) : <code>08:00-18:00</code> ou <code>fermé</code> (vide = non renseigné).</li>
             <li><code>photos</code> : URLs séparées par <code>|</code>. Réimporter remplace les photos existantes.</li>

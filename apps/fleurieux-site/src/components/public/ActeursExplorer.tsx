@@ -255,13 +255,13 @@ export function ActeursExplorer({ acteurs, categories }: Props) {
             onSelectActeur={handleSelectActeur}
           />
         </section>
-      </div>
 
-      {/* Panneau latéral */}
-      <ActeurPanneauLateral
-        acteur={acteurSelectionne}
-        onFermer={handleFermerPanneau}
-      />
+        {/* Panneau latéral : modal plein écran sur mobile, colonne en flux sur desktop */}
+        <ActeurPanneauLateral
+          acteur={acteurSelectionne}
+          onFermer={handleFermerPanneau}
+        />
+      </div>
     </>
   )
 }

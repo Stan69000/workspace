@@ -3,15 +3,9 @@ import Papa from 'papaparse'
 import { prisma } from '@/lib/prisma'
 import { auth } from '@/lib/auth'
 import { logger } from '@/lib/logger'
+import { CSV_COLUMNS, JOURS, HORAIRE_COL, boolToCsv, formatHoraire } from '@/lib/acteur-csv'
 
 export const runtime = 'nodejs'
-
-// Colonnes du fichier d'export = format attendu par l'import (round-trip).
-const COLUMNS = [
-  'nom', 'slug', 'categorieSlug', 'description', 'descriptionLongue',
-  'adresse', 'codePostal', 'ville', 'telephone', 'email', 'siteWeb', 'instagram',
-  'horairesNote', 'statut', 'etatMaj', 'noteMaj',
-]
 
 export async function GET(req: NextRequest) {
   try {
@@ -35,32 +29,42 @@ export async function GET(req: NextRequest) {
     const acteurs = await prisma.acteur.findMany({
       where: categorieId ? { categorieId } : undefined,
       orderBy: [{ categorie: { ordre: 'asc' } }, { nom: 'asc' }],
-      select: {
-        nom: true, slug: true, description: true, descriptionLongue: true,
-        adresse: true, codePostal: true, ville: true, telephone: true, email: true,
-        siteWeb: true, instagram: true, horairesNote: true, statut: true,
-        etatMaj: true, noteMaj: true, categorie: { select: { slug: true } },
+      include: {
+        categorie: { select: { slug: true } },
+        horaires: true,
+        photos: { orderBy: { ordre: 'asc' }, select: { url: true } },
       },
     })
 
-    const rows = acteurs.map(a => ({
-      nom: a.nom,
-      slug: a.slug,
-      categorieSlug: a.categorie.slug,
-      description: a.description ?? '',
-      descriptionLongue: a.descriptionLongue ?? '',
-      adresse: a.adresse ?? '',
-      codePostal: a.codePostal ?? '',
-      ville: a.ville ?? '',
-      telephone: a.telephone ?? '',
-      email: a.email ?? '',
-      siteWeb: a.siteWeb ?? '',
-      instagram: a.instagram ?? '',
-      horairesNote: a.horairesNote ?? '',
-      statut: a.statut,
-      etatMaj: a.etatMaj,
-      noteMaj: a.noteMaj ?? '',
-    }))
+    const rows = acteurs.map(a => {
+      const horaireByJour = Object.fromEntries(a.horaires.map(h => [h.jour, h]))
+      const row: Record<string, string> = {
+        nom: a.nom,
+        slug: a.slug,
+        categorieSlug: a.categorie.slug,
+        emoji: a.emoji ?? '',
+        description: a.description ?? '',
+        descriptionLongue: a.descriptionLongue ?? '',
+        adresse: a.adresse ?? '',
+        codePostal: a.codePostal ?? '',
+        ville: a.ville ?? '',
+        telephone: a.telephone ?? '',
+        email: a.email ?? '',
+        siteWeb: a.siteWeb ?? '',
+        instagram: a.instagram ?? '',
+        accepteEspeces: boolToCsv(a.accepteEspeces),
+        accepteCB: boolToCsv(a.accepteCB),
+        accepteCheque: boolToCsv(a.accepteCheque),
+        accepteVirement: boolToCsv(a.accepteVirement),
+        horairesNote: a.horairesNote ?? '',
+        photos: a.photos.map(p => p.url).join(' | '),
+        statut: a.statut,
+        etatMaj: a.etatMaj,
+        noteMaj: a.noteMaj ?? '',
+      }
+      for (const j of JOURS) row[HORAIRE_COL[j]] = formatHoraire(horaireByJour[j])
+      return row
+    })
 
     logger.info('export acteurs', { count: rows.length, categorie: categorieSlug || 'tous', format, userId: session.user.id })
 
@@ -76,7 +80,7 @@ export async function GET(req: NextRequest) {
       })
     }
 
-    const csv = Papa.unparse({ fields: COLUMNS, data: rows })
+    const csv = Papa.unparse({ fields: CSV_COLUMNS, data: rows })
     // BOM UTF-8 pour qu'Excel ouvre les accents correctement.
     return new NextResponse('﻿' + csv, {
       headers: {

@@ -3,6 +3,7 @@ import { useState, useRef } from 'react'
 import Papa from 'papaparse'
 import { Button } from '@/components/ui/Button'
 import { Card } from '@/components/ui/Card'
+import { CSV_COLUMNS } from '@/lib/acteur-csv'
 
 type CsvRow = Record<string, string>
 
@@ -14,11 +15,7 @@ type ImportResult = {
 }
 
 const REQUIRED_COLUMNS = ['nom', 'slug', 'categorieSlug']
-const ALL_COLUMNS = [
-  'nom', 'slug', 'categorieSlug', 'description', 'descriptionLongue', 'adresse',
-  'codePostal', 'ville', 'telephone', 'email', 'siteWeb', 'instagram',
-  'horairesNote', 'statut', 'etatMaj', 'noteMaj',
-]
+const ALL_COLUMNS = CSV_COLUMNS
 
 interface Props {
   categories: { slug: string; nom: string }[]
@@ -145,8 +142,15 @@ export function ImportExportActeurs({ categories }: Props) {
           <p className="text-sm text-gray-500 dark:text-gray-400">
             Obligatoires : {REQUIRED_COLUMNS.join(', ')}. Mise à jour par <code>slug</code>. Maximum 1000 lignes.
             <br />
-            <code>etatMaj</code> : ACTIF · A_VERIFIER · MODIFIE · FERME — <code>noteMaj</code> : ce qui a changé / à faire.
+            <strong>Une colonne absente du fichier laisse le champ inchangé</strong> — tu peux donc importer
+            un CSV réduit (ex. <code>slug</code> + <code>etatMaj</code> + <code>noteMaj</code>) sans rien écraser.
           </p>
+          <ul className="mt-1 space-y-0.5 text-xs text-gray-400 dark:text-gray-600">
+            <li><code>etatMaj</code> : ACTIF · A_VERIFIER · MODIFIE · FERME — <code>noteMaj</code> : ce qui a changé / à faire.</li>
+            <li>Paiements (<code>accepteEspeces</code>…) : <code>oui</code> / <code>non</code>.</li>
+            <li>Horaires (<code>horaire_lundi</code>…) : <code>08:00-18:00</code> ou <code>fermé</code> (vide = non renseigné).</li>
+            <li><code>photos</code> : URLs séparées par <code>|</code>. Réimporter remplace les photos existantes.</li>
+          </ul>
         </div>
 
         <Card>

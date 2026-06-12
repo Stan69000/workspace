@@ -1,5 +1,4 @@
 // src/lib/schema-org.ts
-import type { Acteur, Categorie, Horaire } from '@prisma/client'
 
 const JOURS_SCHEMA: Record<string, string> = {
   LUNDI:    'Monday',
@@ -11,10 +10,22 @@ const JOURS_SCHEMA: Record<string, string> = {
   DIMANCHE: 'Sunday',
 }
 
-export function localBusinessSchema(
-  acteur: Acteur & { categorie: Categorie; horaires: Horaire[] },
-  url: string,
-) {
+// Type structurel (découplé de Prisma) : seuls les champs publics nécessaires.
+type SchemaActeur = {
+  nom: string
+  description: string | null
+  adresse: string | null
+  codePostal: string | null
+  ville: string | null
+  telephone: string | null
+  siteWeb: string | null
+  instagram: string | null
+  latitude: number | null
+  longitude: number | null
+  horaires: { jour: string; ouvert: boolean; ouverture: string | null; fermeture: string | null }[]
+}
+
+export function localBusinessSchema(acteur: SchemaActeur, url: string) {
   const openingHours = acteur.horaires
     .filter(h => h.ouvert && h.ouverture && h.fermeture)
     .map(h => `${JOURS_SCHEMA[h.jour]} ${h.ouverture}-${h.fermeture}`)

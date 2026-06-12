@@ -66,14 +66,22 @@ export function ImportExportActeurs({ categories }: Props) {
     if (rows.length === 0) return
     setImporting(true)
     setResult(null)
+    setParseError(null)
     try {
       const res = await fetch('/api/acteurs/import', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ rows }),
       })
-      const data = await res.json() as ImportResult
-      setResult(data)
+      const data = await res.json()
+      // Réponse d'erreur (400/403/500) : pas de `results` → on affiche l'erreur au lieu de crasher.
+      if (!res.ok || !Array.isArray(data?.results)) {
+        let msg = data?.error ?? 'Erreur lors de l\'import'
+        if (data?.details) msg += ' — ' + JSON.stringify(data.details).slice(0, 400)
+        setParseError(msg)
+        return
+      }
+      setResult(data as ImportResult)
     } catch {
       setParseError('Erreur lors de l\'import')
     } finally {
@@ -205,7 +213,7 @@ export function ImportExportActeurs({ categories }: Props) {
                   <span className="font-medium text-red-600">{result.errors} erreur{result.errors > 1 ? 's' : ''}</span>
                 )}
               </div>
-              {result.results.filter(r => r.action === 'error').map(r => (
+              {(result.results ?? []).filter(r => r.action === 'error').map(r => (
                 <p key={r.slug} className="text-xs text-red-600 dark:text-red-400">{r.slug} : {r.error}</p>
               ))}
             </div>

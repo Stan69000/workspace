@@ -67,13 +67,14 @@ export type TrainAlert = {
 }
 
 export type BusDeparture = {
-  line: string            // '216' | '218'
+  line: string            // '216' | '218' | '86'
   lineColor: string       // couleur officielle de la ligne (hex)
   destination: string
-  stop: string            // arrêt à Fleurieux
+  stop: string            // arrêt desservi
   departureTime: number   // Unix timestamp UTC (heure estimée temps réel)
   delayMin: number
   cancelled: boolean
+  corr?: boolean          // true = correspondance (hors Fleurieux, ex. bus 86 à Tassin)
 }
 
 export type TransportsData = {

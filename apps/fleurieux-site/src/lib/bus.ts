@@ -1,5 +1,6 @@
 import type { BusDeparture } from '@/types'
-import schedule from '@/data/fleurieux-bus.json'
+import fleurieuxSchedule from '@/data/fleurieux-bus.json'
+import correspSchedule from '@/data/correspondance-bus.json'
 
 // Temps réel bus à Fleurieux (lignes 216 / 218) via SIRI-Lite SYTRAL.
 //
@@ -14,6 +15,7 @@ const SIRI_ET = 'https://data.grandlyon.com/siri-lite/2.0/estimated-timetables.j
 const LINE_COLORS: Record<string, string> = {
   '216': '#992358',
   '218': '#6E8997',
+  '86': '#E5282B',
 }
 
 type ScheduleEntry = {
@@ -23,9 +25,13 @@ type ScheduleEntry = {
   dir: string
   destination: string
   stop: string
+  corr?: boolean
 }
 
-const ENTRIES = (schedule as { entries: ScheduleEntry[] }).entries
+const ENTRIES: ScheduleEntry[] = [
+  ...(fleurieuxSchedule as { entries: ScheduleEntry[] }).entries,
+  ...(correspSchedule as { entries: ScheduleEntry[] }).entries,
+]
 const ROUTE_IDS = [...new Set(ENTRIES.map(e => e.route_id))]
 
 // Index de matching : route_id | HH:MM | dir(0/1) → arrêt/destination théoriques.
@@ -115,11 +121,12 @@ export async function getBusData(): Promise<{ buses: BusDeparture[]; available: 
           departureTime,
           delayMin,
           cancelled,
+          corr: entry.corr === true,
         })
       }
     }
   }
 
   buses.sort((a, b) => a.departureTime - b.departureTime)
-  return { buses: buses.slice(0, 12), available: true }
+  return { buses: buses.slice(0, 20), available: true }
 }

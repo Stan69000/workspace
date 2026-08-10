@@ -154,6 +154,8 @@ export async function POST(req: NextRequest) {
             const created = await tx.acteur.create({
               data: {
                 ...data,
+                nom: row.nom,
+                categorieId: categorie.id,
                 slug: row.slug,
                 contributeurId: session.user.id,
                 statut: (data.statut as Statut | undefined) ?? (isAdmin ? undefined : Statut.EN_ATTENTE),
@@ -181,7 +183,8 @@ export async function POST(req: NextRequest) {
 
         results.push({ slug: row.slug, action: existing ? 'updated' : 'created' })
       } catch (rowErr) {
-        results.push({ slug: row.slug, action: 'error', error: String(rowErr) })
+        const slug = typeof raw.slug === 'string' ? raw.slug : '?'
+        results.push({ slug, action: 'error', error: String(rowErr) })
       }
     }
 

@@ -1,9 +1,8 @@
-import type { Horaire } from '@prisma/client'
-import { getStatutOuverture } from '@/lib/ouvert-maintenant'
+import { getStatutOuverture, type HoraireOuverture } from '@/lib/ouvert-maintenant'
 import { Badge } from '@/components/ui/Badge'
 
 interface Props {
-  horaires: Horaire[]
+  horaires: HoraireOuverture[]
   horairesNote?: string | null
 }
 

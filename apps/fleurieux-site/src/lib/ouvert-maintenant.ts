@@ -2,6 +2,8 @@
 import type { Horaire } from '@prisma/client'
 import { jourCourant } from './utils'
 
+export type HoraireOuverture = Pick<Horaire, 'jour' | 'ouvert' | 'ouverture' | 'fermeture'>
+
 export type StatutOuverture = {
   ouvert: boolean
   label: string
@@ -9,7 +11,7 @@ export type StatutOuverture = {
   indetermine?: boolean
 }
 
-export function getStatutOuverture(horaires: Horaire[], horairesNote?: string | null): StatutOuverture {
+export function getStatutOuverture(horaires: HoraireOuverture[], horairesNote?: string | null): StatutOuverture {
   // Pas d'horaires fixes (ex. traiteur sur commande) : pas de statut ouvert/fermé
   if (horaires.length === 0) {
     return { ouvert: false, indetermine: true, label: horairesNote ? 'Sur commande' : 'Horaires non communiqués' }

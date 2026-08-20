@@ -43,7 +43,7 @@ export default async function HomePage() {
 
       {/* Hero */}
       <section aria-labelledby="hero-titre">
-        <div className="hero-section rounded-2xl bg-gradient-to-br from-village-600 to-village-800 px-8 py-14 text-white">
+        <div className="hero-section rounded-2xl bg-linear-to-br from-village-600 to-village-800 px-8 py-14 text-white">
           <p className="text-sm font-medium uppercase tracking-wider text-white/90">Fleurieux-sur-l&apos;Arbresle</p>
           <h1 id="hero-titre" className="mt-2 text-4xl font-bold">
             Bienvenue dans notre village <span aria-hidden="true">🌿</span>

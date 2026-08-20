@@ -59,7 +59,7 @@ export default function TwoFactorPage() {
               required
               value={code}
               onChange={e => setCode(e.target.value)}
-              className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-center text-lg tracking-widest focus:border-village-500 focus:outline-none focus:ring-1 focus:ring-village-500 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100"
+              className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-center text-lg tracking-widest focus:border-village-500 focus:outline-hidden focus:ring-1 focus:ring-village-500 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100"
             />
           </div>
 

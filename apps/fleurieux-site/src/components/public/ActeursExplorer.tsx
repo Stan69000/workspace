@@ -106,7 +106,7 @@ export function ActeursExplorer({ acteurs, categories }: Props) {
             value={search}
             onChange={e => setSearch(e.target.value)}
             placeholder="Rechercher un acteur…"
-            className="w-full rounded-lg border border-gray-300 bg-white px-4 py-2 pl-10 text-sm placeholder-gray-400 focus:border-village-500 focus:outline-none focus:ring-2 focus:ring-village-500/30 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100"
+            className="w-full rounded-lg border border-gray-300 bg-white px-4 py-2 pl-10 text-sm placeholder-gray-400 focus:border-village-500 focus:outline-hidden focus:ring-2 focus:ring-village-500/30 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100"
           />
           <svg className="absolute left-3 top-2.5 h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -180,7 +180,7 @@ export function ActeursExplorer({ acteurs, categories }: Props) {
             <button
               onClick={() => setVueMobile('liste')}
               className={cn(
-                'rounded px-3 py-1 text-sm transition-colors',
+                'rounded-sm px-3 py-1 text-sm transition-colors',
                 vueMobile === 'liste' ? 'bg-village-600 text-white' : 'text-gray-600 dark:text-gray-400',
               )}
               aria-pressed={vueMobile === 'liste'}
@@ -190,7 +190,7 @@ export function ActeursExplorer({ acteurs, categories }: Props) {
             <button
               onClick={() => setVueMobile('carte')}
               className={cn(
-                'rounded px-3 py-1 text-sm transition-colors',
+                'rounded-sm px-3 py-1 text-sm transition-colors',
                 vueMobile === 'carte' ? 'bg-village-600 text-white' : 'text-gray-600 dark:text-gray-400',
               )}
               aria-pressed={vueMobile === 'carte'}
@@ -225,7 +225,7 @@ export function ActeursExplorer({ acteurs, categories }: Props) {
           {acteursFiltres.length === 0 ? (
             <p className="py-16 text-center text-gray-400">Aucun acteur trouvé.</p>
           ) : (
-            <div className="space-y-3 lg:max-h-[calc(100vh_-_16rem)] lg:overflow-y-auto lg:pr-1">
+            <div className="space-y-3 lg:max-h-[calc(100vh-16rem)] lg:overflow-y-auto lg:pr-1">
               {acteursFiltres.map(a => (
                 <ActeurCardCompacte
                   key={a.id}
@@ -244,9 +244,9 @@ export function ActeursExplorer({ acteurs, categories }: Props) {
           className={cn(
             // Desktop: toujours visible, occupe l'espace restant, collée
             'lg:flex-1 lg:block lg:sticky lg:top-20',
-            'lg:h-[calc(100vh_-_16rem)]',
+            'lg:h-[calc(100vh-16rem)]',
             // Mobile: conditionnel
-            vueMobile === 'carte' ? 'w-full h-[calc(100dvh_-_12rem)]' : 'hidden lg:block',
+            vueMobile === 'carte' ? 'w-full h-[calc(100dvh-12rem)]' : 'hidden lg:block',
           )}
         >
           <ActeursMap
@@ -300,11 +300,11 @@ function ActeurCardCompacte({ acteur, selectionne, onSelectCarte }: CardProps) {
         'group flex gap-3 rounded-xl border bg-white p-3 transition-all dark:bg-gray-900',
         selectionne
           ? 'border-village-500 ring-2 ring-village-500/30 shadow-md'
-          : 'border-gray-200 dark:border-gray-700 hover:border-village-300 hover:shadow-sm',
+          : 'border-gray-200 dark:border-gray-700 hover:border-village-300 hover:shadow-xs',
       )}
     >
       {/* Miniature */}
-      <div className="relative h-16 w-16 flex-shrink-0 overflow-hidden rounded-lg bg-gray-100 dark:bg-gray-800">
+      <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-lg bg-gray-100 dark:bg-gray-800">
         {photo ? (
           <Image src={photo.url} alt={photo.alt ?? acteur.nom} fill className="object-cover" sizes="64px" />
         ) : (
@@ -324,12 +324,12 @@ function ActeurCardCompacte({ acteur, selectionne, onSelectCarte }: CardProps) {
       </div>
 
       {/* Actions */}
-      <div className="flex flex-col gap-1 items-end flex-shrink-0">
+      <div className="flex flex-col gap-1 items-end shrink-0">
         <button
           onClick={() => onSelectCarte(acteur)}
           aria-label={`Voir ${acteur.nom} sur la carte`}
           title="Voir sur la carte"
-          className="rounded p-1 text-gray-400 hover:text-village-600 hover:bg-village-50 dark:hover:bg-village-900/20 focus:outline-none focus:ring-2 focus:ring-village-500 transition-colors"
+          className="rounded-sm p-1 text-gray-400 hover:text-village-600 hover:bg-village-50 dark:hover:bg-village-900/20 focus:outline-hidden focus:ring-2 focus:ring-village-500 transition-colors"
         >
           <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
@@ -339,7 +339,7 @@ function ActeurCardCompacte({ acteur, selectionne, onSelectCarte }: CardProps) {
         <Link
           href={`/acteurs/${acteur.slug}`}
           aria-label={`Voir la fiche de ${acteur.nom}`}
-          className="rounded p-1 text-gray-400 hover:text-village-600 hover:bg-village-50 dark:hover:bg-village-900/20 focus:outline-none focus:ring-2 focus:ring-village-500 transition-colors"
+          className="rounded-sm p-1 text-gray-400 hover:text-village-600 hover:bg-village-50 dark:hover:bg-village-900/20 focus:outline-hidden focus:ring-2 focus:ring-village-500 transition-colors"
         >
           <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />

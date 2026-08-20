@@ -68,7 +68,7 @@ function LoginForm() {
             required
             value={email}
             onChange={e => setEmail(e.target.value)}
-            className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-village-500 focus:outline-none focus:ring-1 focus:ring-village-500 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100"
+            className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-village-500 focus:outline-hidden focus:ring-1 focus:ring-village-500 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100"
           />
         </div>
 
@@ -81,7 +81,7 @@ function LoginForm() {
             required
             value={password}
             onChange={e => setPassword(e.target.value)}
-            className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-village-500 focus:outline-none focus:ring-1 focus:ring-village-500 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100"
+            className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-village-500 focus:outline-hidden focus:ring-1 focus:ring-village-500 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100"
           />
         </div>
 

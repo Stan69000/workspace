@@ -22,7 +22,7 @@
     "better-auth": "^1.6.28",
     "chart.js": "^4.5.1",
     "clsx": "^2.1.0",
-    "date-fns": "^3.6.0",
+    "date-fns": "^4.4.0",
     "gtfs-realtime-bindings": "^2.2.0",
     "ical-generator": "^11.1.0",
     "leaflet": "^1.9.4",

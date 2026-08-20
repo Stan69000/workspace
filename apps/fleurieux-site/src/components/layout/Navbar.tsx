@@ -27,7 +27,7 @@ export function Navbar({ modules = {} }: { modules?: Record<string, boolean> }) 
   }
 
   return (
-    <header className="sticky top-0 z-40 border-b border-gray-200 bg-white/90 backdrop-blur-sm dark:border-gray-800 dark:bg-gray-950/90">
+    <header className="sticky top-0 z-40 border-b border-gray-200 bg-white/90 backdrop-blur-xs dark:border-gray-800 dark:bg-gray-950/90">
       <div className="mx-auto flex h-16 max-w-7xl items-center gap-4 px-4 sm:px-6">
         <Link href="/" className="flex items-center gap-2 font-semibold text-village-700 dark:text-village-400">
           <span className="text-2xl" aria-hidden="true">🌿</span>

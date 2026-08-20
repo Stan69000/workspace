@@ -7,7 +7,7 @@ const TYPES = [
   ['ESPACES_VERTS', 'Espaces verts'], ['MOBILIER', 'Mobilier urbain'], ['AUTRE', 'Autre'],
 ] as const
 
-const FIELD = 'w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm focus:border-village-500 focus:outline-none focus:ring-1 focus:ring-village-500 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100'
+const FIELD = 'w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm focus:border-village-500 focus:outline-hidden focus:ring-1 focus:ring-village-500 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100'
 
 const EMPTY = { type: 'AUTRE', description: '', localisation: '', prenomAuteur: '', contact: '' }
 

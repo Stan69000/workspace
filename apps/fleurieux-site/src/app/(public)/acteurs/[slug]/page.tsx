@@ -191,7 +191,7 @@ export default async function ActeurPage({ params }: Props) {
               {hasPhotos && (
                 <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
                   {acteur.photos.map(p => (
-                    <div key={p.id} className="relative aspect-[4/3] overflow-hidden rounded-xl bg-gray-100 dark:bg-gray-800">
+                    <div key={p.id} className="relative aspect-4/3 overflow-hidden rounded-xl bg-gray-100 dark:bg-gray-800">
                       <Image src={p.url} alt={p.alt ?? acteur.nom} fill className="object-cover" sizes="(max-width: 640px) 50vw, 33vw" />
                     </div>
                   ))}

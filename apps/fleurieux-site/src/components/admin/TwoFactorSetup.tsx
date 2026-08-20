@@ -156,7 +156,7 @@ export function TwoFactorSetup({ initialEnabled }: { initialEnabled: boolean }) 
           {totpUri && (
             <details className="text-sm">
               <summary className="cursor-pointer text-village-600 dark:text-village-400">Saisie manuelle (clé secrète)</summary>
-              <code className="mt-1 block break-all rounded bg-gray-100 p-2 text-xs dark:bg-gray-800">{totpUri}</code>
+              <code className="mt-1 block break-all rounded-sm bg-gray-100 p-2 text-xs dark:bg-gray-800">{totpUri}</code>
             </details>
           )}
 

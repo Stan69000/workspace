@@ -146,7 +146,7 @@ export function ActeursMap({ acteurs, acteurSelectionne, onSelectActeur }: Props
     >
       <a
         href="#liste-acteurs"
-        className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-[1002] focus:rounded focus:bg-white focus:px-3 focus:py-1 focus:text-sm focus:shadow"
+        className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-1002 focus:rounded-sm focus:bg-white focus:px-3 focus:py-1 focus:text-sm focus:shadow-sm"
       >
         Aller à la liste des acteurs
       </a>

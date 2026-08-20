@@ -94,7 +94,7 @@ export function NotificationPreferences() {
         <legend className="text-sm font-medium text-gray-700 dark:text-gray-300">Je veux être notifié pour :</legend>
         {PUSH_TOPICS.map(t => (
           <label key={t.key} className="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300">
-            <input type="checkbox" checked={topics.includes(t.key)} onChange={e => toggle(t.key, e.target.checked)} className="h-4 w-4 rounded border-gray-300" />
+            <input type="checkbox" checked={topics.includes(t.key)} onChange={e => toggle(t.key, e.target.checked)} className="h-4 w-4 rounded-sm border-gray-300" />
             {t.label}
           </label>
         ))}

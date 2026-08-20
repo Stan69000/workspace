@@ -51,7 +51,7 @@ export default async function MeteoPage() {
     <div className="space-y-8">
       {/* Conditions actuelles */}
       <section aria-labelledby="meteo-titre">
-        <div className={`rounded-2xl bg-gradient-to-br ${meteoGradient(c.code, c.jour)} px-6 py-8 text-white sm:px-8`}>
+        <div className={`rounded-2xl bg-linear-to-br ${meteoGradient(c.code, c.jour)} px-6 py-8 text-white sm:px-8`}>
           <div className="flex flex-wrap items-start justify-between gap-6">
             <div className="flex items-center gap-4">
               <span className="text-6xl sm:text-7xl" aria-hidden="true">{w.emoji}</span>
@@ -113,7 +113,7 @@ export default async function MeteoPage() {
             {meteo.heures.map(h => {
               const hw = wmo(h.code)
               return (
-                <li key={h.time} className="flex min-w-[3.5rem] flex-col items-center gap-1 text-center text-sm">
+                <li key={h.time} className="flex min-w-14 flex-col items-center gap-1 text-center text-sm">
                   <span className="text-gray-500 dark:text-gray-400">{h.time.slice(11, 13)}h</span>
                   <span className="text-xl" aria-hidden="true">{hw.emoji}</span>
                   <span className="font-semibold text-gray-900 dark:text-gray-100">{h.temp}°</span>

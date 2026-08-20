@@ -15,7 +15,7 @@ const FREQ = [
   ['HEBDOMADAIRE', 'Chaque semaine'], ['SEMAINES_PAIRES', 'Semaines paires'], ['SEMAINES_IMPAIRES', 'Semaines impaires'],
 ] as const
 
-const FIELD = 'w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm focus:border-village-500 focus:outline-none focus:ring-1 focus:ring-village-500 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100'
+const FIELD = 'w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm focus:border-village-500 focus:outline-hidden focus:ring-1 focus:ring-village-500 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100'
 const EMPTY = { type: 'ORDURES_MENAGERES', jour: 'MARDI', frequence: 'HEBDOMADAIRE', note: '' }
 
 export function CollecteForm() {

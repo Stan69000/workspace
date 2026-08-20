@@ -30,7 +30,7 @@ export function ActeurPanneauLateral({ acteur, onFermer }: Props) {
       {/* Fond semi-transparent — seulement quand le panneau est un modal (mobile/tablette) */}
       {acteur && (
         <div
-          className="fixed inset-0 z-[1000] bg-black/30 lg:hidden"
+          className="fixed inset-0 z-1000 bg-black/30 lg:hidden"
           onClick={onFermer}
           aria-hidden="true"
         />
@@ -43,13 +43,13 @@ export function ActeurPanneauLateral({ acteur, onFermer }: Props) {
         aria-labelledby="panneau-titre"
         className={cn(
           // Mobile / tablette : modal plein écran qui glisse depuis la droite
-          'fixed top-0 right-0 z-[1001] h-full overflow-y-auto',
+          'fixed top-0 right-0 z-1001 h-full overflow-y-auto',
           'w-full sm:w-96',
           'bg-white dark:bg-gray-900 shadow-2xl',
           'transition-transform duration-300 ease-in-out',
           acteur ? 'translate-x-0' : 'translate-x-full',
           // Desktop : colonne en flux à côté de la carte (ne recouvre plus header/filtres)
-          'lg:static lg:z-auto lg:h-[calc(100vh_-_16rem)] lg:w-96 lg:flex-shrink-0',
+          'lg:static lg:z-auto lg:h-[calc(100vh-16rem)] lg:w-96 lg:shrink-0',
           'lg:translate-x-0 lg:rounded-xl lg:border lg:border-gray-200 dark:lg:border-gray-700 lg:shadow-none',
           acteur ? 'lg:block' : 'lg:hidden',
         )}
@@ -59,7 +59,7 @@ export function ActeurPanneauLateral({ acteur, onFermer }: Props) {
             {/* Header */}
             <div className="flex items-start justify-between gap-3 p-5 border-b border-gray-200 dark:border-gray-700">
               <div className="flex items-center gap-3 min-w-0">
-                <span className="text-3xl flex-shrink-0" aria-hidden="true">
+                <span className="text-3xl shrink-0" aria-hidden="true">
                   {acteur.emoji ?? acteur.categorie.emoji ?? '🏪'}
                 </span>
                 <div className="min-w-0">
@@ -67,7 +67,7 @@ export function ActeurPanneauLateral({ acteur, onFermer }: Props) {
                     id="panneau-titre"
                     ref={titreRef}
                     tabIndex={-1}
-                    className="font-bold text-lg text-gray-900 dark:text-gray-100 leading-tight outline-none"
+                    className="font-bold text-lg text-gray-900 dark:text-gray-100 leading-tight outline-hidden"
                   >
                     {acteur.nom}
                   </h2>
@@ -79,7 +79,7 @@ export function ActeurPanneauLateral({ acteur, onFermer }: Props) {
               <button
                 onClick={onFermer}
                 aria-label="Fermer le panneau"
-                className="flex-shrink-0 rounded-full p-1.5 text-gray-400 hover:bg-gray-100 hover:text-gray-600 dark:hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-village-500"
+                className="shrink-0 rounded-full p-1.5 text-gray-400 hover:bg-gray-100 hover:text-gray-600 dark:hover:bg-gray-800 focus:outline-hidden focus:ring-2 focus:ring-village-500"
               >
                 <svg className="w-5 h-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                   <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
@@ -112,18 +112,18 @@ export function ActeurPanneauLateral({ acteur, onFermer }: Props) {
                 {acteur.adresse && (
                   <div className="flex gap-2">
                     <dt className="sr-only">Adresse</dt>
-                    <span aria-hidden="true" className="flex-shrink-0">📍</span>
+                    <span aria-hidden="true" className="shrink-0">📍</span>
                     <dd className="text-gray-700 dark:text-gray-300">{acteur.adresse}</dd>
                   </div>
                 )}
                 {acteur.telephone && (
                   <div className="flex gap-2">
                     <dt className="sr-only">Téléphone</dt>
-                    <span aria-hidden="true" className="flex-shrink-0">📞</span>
+                    <span aria-hidden="true" className="shrink-0">📞</span>
                     <dd>
                       <a
                         href={`tel:${acteur.telephone}`}
-                        className="text-village-600 hover:underline dark:text-village-400 focus:outline-none focus:ring-2 focus:ring-village-500 rounded"
+                        className="text-village-600 hover:underline dark:text-village-400 focus:outline-hidden focus:ring-2 focus:ring-village-500 rounded-sm"
                       >
                         {acteur.telephone}
                       </a>
@@ -137,7 +137,7 @@ export function ActeurPanneauLateral({ acteur, onFermer }: Props) {
             <div className="p-5 border-t border-gray-200 dark:border-gray-700">
               <Link
                 href={`/acteurs/${acteur.slug}`}
-                className="block w-full rounded-lg bg-village-600 px-4 py-2.5 text-center text-sm font-semibold text-white hover:bg-village-700 focus:outline-none focus:ring-2 focus:ring-village-500 focus:ring-offset-2 transition-colors"
+                className="block w-full rounded-lg bg-village-600 px-4 py-2.5 text-center text-sm font-semibold text-white hover:bg-village-700 focus:outline-hidden focus:ring-2 focus:ring-village-500 focus:ring-offset-2 transition-colors"
               >
                 Voir la fiche complète →
               </Link>

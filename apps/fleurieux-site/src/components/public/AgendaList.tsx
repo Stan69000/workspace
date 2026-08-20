@@ -97,7 +97,7 @@ export function AgendaList({ evenements, siteUrl }: { evenements: Evenement[]; s
                 type="checkbox"
                 checked={selected.has(evt.id)}
                 onChange={() => toggle(evt.id)}
-                className="mt-1 h-4 w-4 shrink-0 rounded border-gray-300 text-village-600 focus:ring-village-500"
+                className="mt-1 h-4 w-4 shrink-0 rounded-sm border-gray-300 text-village-600 focus:ring-village-500"
               />
               <div className="min-w-[56px] rounded-lg bg-village-50 p-3 text-center dark:bg-village-900/20">
                 <p className="text-2xl font-bold leading-none text-village-700 dark:text-village-400">

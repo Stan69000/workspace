@@ -86,7 +86,7 @@ function BusRow({ bus }: { bus: BusDeparture }) {
           <img src={`/lignes/${bus.line}.svg`} alt={`Ligne ${bus.line}`} className="h-7 w-auto shrink-0" />
         ) : (
           <span
-            className="inline-flex h-7 min-w-[2.5rem] items-center justify-center rounded px-1.5 text-sm font-bold text-white"
+            className="inline-flex h-7 min-w-10 items-center justify-center rounded-sm px-1.5 text-sm font-bold text-white"
             style={{ backgroundColor: bus.lineColor }}
           >
             {bus.line}
@@ -261,7 +261,7 @@ export function TransportsPage({ initial }: { initial: TransportsData | null }) 
         <button
           onClick={refresh}
           disabled={loading}
-          className="rounded px-2 py-1 hover:bg-gray-100 disabled:opacity-50 dark:hover:bg-gray-800"
+          className="rounded-sm px-2 py-1 hover:bg-gray-100 disabled:opacity-50 dark:hover:bg-gray-800"
         >
           {loading ? 'Chargement…' : 'Actualiser'}
         </button>
